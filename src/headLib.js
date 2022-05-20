@@ -8,7 +8,7 @@ const head = (content, { lines, delimiter }) => {
   return joinLines(filteredLines, delimiter);
 };
 
-const headMain = (readFile, fileName, options) => {
+const headMain = (readFile, { fileName, options }) => {
   let content;
   try {
     content = readFile(fileName, 'utf8');

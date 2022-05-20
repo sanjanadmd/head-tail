@@ -3,7 +3,7 @@
 - [ ] Implement -n option
 - [ ] Implement -c option
 - [ ] Implement default options to head function
-- [ ] Parse commandLine inputs and return options
+- [ ] Add a function to Parse commandLine inputs and return options and files
 - [ ] Dealing `head` with files
 - [ ] Remove testStringUtils.js
 
