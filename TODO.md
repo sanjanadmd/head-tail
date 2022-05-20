@@ -3,8 +3,8 @@
 - [ ] Implement -n option
 - [ ] Implement -c option
 - [ ] Implement default options to head function
-- [ ] Add a function to Parse commandLine inputs and return options and files
 - [ ] Dealing `head` with files
+- [ ] Rename firstNLines function
 - [ ] Remove testStringUtils.js
 
 **MAYBE**
@@ -13,6 +13,7 @@
 
 **DONE**
 
+- [x] Add a function to Parse commandLine inputs and return options and files
 - [x] Report error when file is not readable
 - [x] Add number of bytes option
 - [x] Add number of lines option
