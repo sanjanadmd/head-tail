@@ -1,7 +1,8 @@
 **TODO**
 
-- [ ] Seperate `split` and `join` from head
+- [ ] Seperate extractLines and joinLines to line.js
 - [ ] Implement -n option
+- [ ] Implement default option to head function
 - [ ] Fix contract of `head` function to take lines and give back given number of 
 lines
 
@@ -10,6 +11,7 @@ lines
 
 **DONE**
 
+- [x] Seperate `split` and `join` from head
 - [x] Rename head.js in src to headLib.js
 - [x] Modify `firstLine` contract to take count with lines and give back count lines
 - [x] Modify `firstLine` function to `firstNlines` 

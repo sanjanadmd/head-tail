@@ -1,5 +1,7 @@
 const assert = require('assert');
-const { head, firstNLines } = require('../src/headLib.js');
+const {
+  head, firstNLines,
+  extractLines, joinLines } = require('../src/headLib.js');
 
 describe('head', () => {
   it('should display single line', () => {
@@ -35,6 +37,27 @@ describe('firstNLines', () => {
 
   it('should return empty array', () => {
     assert.deepStrictEqual(firstNLines([], 1), []);
+  });
+
+});
+
+describe('extractLines', () => {
+  it('should extract single line into array', () => {
+    assert.deepStrictEqual(extractLines('a'), ['a']);
+    assert.deepStrictEqual(extractLines('first line'), ['first line']);
+  });
+
+  it('should extract lines seperated by \\n', () => {
+    assert.deepStrictEqual(extractLines('first\nlast'), ['first', 'last']);
+  });
+
+});
+
+describe('joinLines', () => {
+  it('should join lines into single line', () => {
+    assert.strictEqual(joinLines(['a']), 'a');
+    assert.strictEqual(joinLines(['first line']), 'first line');
+    assert.strictEqual(joinLines(['first', 'last']), 'first\nlast');
   });
 
 });
