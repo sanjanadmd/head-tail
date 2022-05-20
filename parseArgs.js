@@ -1,18 +1,19 @@
 const parseArgs = (args) => {
   const defaultOptions = { '-n': '\n', '-c': '' };
-  const newOptions = { lines: 10, delimiter: '\n' };
+  const options = { lines: 10, delimiter: '\n' };
   const fileNames = [];
   for (let index = 0; index < args.length; index++) {
     if (args[index].match(/^-/)) {
-      newOptions.delimiter = defaultOptions[args[index]];
-      newOptions.lines = +args[index + 1];
+      options.delimiter = defaultOptions[args[index]];
+      options.lines = +args[index + 1];
       index++;
     } else if (args[index].match(/^[^-\d]/)) {
-      fileNames.push(args[index]);
+      fileNames.push(...args.slice(index));
+      return { fileNames, options };
     }
   }
 
-  return { fileNames, options: newOptions };
+  return { fileNames, options };
 };
 
 exports.parseArgs = parseArgs;

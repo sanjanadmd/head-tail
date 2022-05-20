@@ -28,5 +28,10 @@ describe('parseArgs', () => {
         fileNames: ['a.txt', 'b.txt'],
         options: { lines: 4, delimiter: '' }
       });
+    assert.deepStrictEqual(parseArgs(['-c', '4', 'a.txt', 'b.txt', '-n', '4']),
+      {
+        fileNames: ['a.txt', 'b.txt', '-n', '4'],
+        options: { lines: 4, delimiter: '' }
+      });
   });
 });

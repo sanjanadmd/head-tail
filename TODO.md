@@ -4,7 +4,7 @@
 - [ ] Implement -c option from command line
 - [ ] Implement default options to head function
 - [ ] Dealing `head` with files
-- [ ] Refactor parseArgs
+- [ ] Refactor parseArgs complex logic
 - [ ] Linking parseArgs to head.js
 - [ ] Rename firstNLines function
 - [ ] Remove testStringUtils.js
