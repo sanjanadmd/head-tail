@@ -8,7 +8,7 @@ const head = (content, numberOfLines) => {
   return joinLines(lines);
 };
 
-const headMain = (readFile, fileName, lines) => {
+const headMain = (readFile, fileName, { lines }) => {
   const content = readFile(fileName, 'utf8');
   return head(content, lines);
 };
