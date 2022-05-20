@@ -1,6 +1,9 @@
 **TODO**
 
-- [ ] Fix contract of head function to take lines and give back number of lines
+- [ ] Rename head.js in src to headLib.js
+- [ ] Add a function which takes lines and gives back first line
+- [ ] Fix contract of head function to take lines and give back given number of 
+lines
 
 **MAYBE**
 
