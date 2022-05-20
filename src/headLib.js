@@ -1,7 +1,6 @@
-const firstNLines = (lines, count) => lines.slice(0, count);
+const { extractLines, joinLines } = require('./stringUtils.js');
 
-const extractLines = (content) => content.split('\n');
-const joinLines = (lines) => lines.join('\n');
+const firstNLines = (lines, count) => lines.slice(0, count);
 
 const head = (content) => {
   const lines = extractLines(content);
@@ -10,6 +9,5 @@ const head = (content) => {
 };
 
 exports.head = head;
-exports.extractLines = extractLines;
-exports.joinLines = joinLines;
+
 exports.firstNLines = firstNLines;

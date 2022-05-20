@@ -1,16 +1,16 @@
 **TODO**
 
-- [ ] Seperate extractLines and joinLines to line.js
 - [ ] Implement -n option
 - [ ] Implement default option to head function
-- [ ] Fix contract of `head` function to take lines and give back given number of 
-lines
+- [ ] Add feature to pass a file and get back number of lines we require
+- [ ] Fix contract of `head` function to take lines and get back lines we want
 
 **MAYBE**
 
 
 **DONE**
 
+- [x] Seperate extractLines and joinLines to stringUtils.js
 - [x] Seperate `split` and `join` from head
 - [x] Rename head.js in src to headLib.js
 - [x] Modify `firstLine` contract to take count with lines and give back count lines
