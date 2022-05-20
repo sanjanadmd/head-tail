@@ -1,7 +1,5 @@
 **TODO**
 
-- [ ] Create directory structure ( src, test )
-- [ ] Add eslint and verify mocha
 - [ ] Write a test
 - [ ] Make 'head' to display single line
 
@@ -9,3 +7,7 @@
 
 
 **DONE**
+
+- [x] Make `head.js` and `testHead.js` 
+- [x] Create directory structure ( src, test )
+- [x] Add eslint and verify mocha exists
