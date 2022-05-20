@@ -4,7 +4,7 @@
 - [ ] Implement -c option from command line
 - [ ] Implement default options to head function
 - [ ] Dealing `head` with files
-- [ ] Refactor parseArgs complex logic
+- [ ] Investigate about how head behaves when it find fileNames starting with hypen
 - [ ] Linking parseArgs to head.js
 - [ ] Rename firstNLines function
 - [ ] Remove testStringUtils.js
@@ -15,6 +15,7 @@
 
 **DONE**
 
+- [x] Refactor parseArgs complex logic
 - [x] Add a function to Parse commandLine inputs and return options and files
 - [x] Report error when file is not readable
 - [x] Add number of bytes option

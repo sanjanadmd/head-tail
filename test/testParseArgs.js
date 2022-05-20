@@ -34,4 +34,12 @@ describe('parseArgs', () => {
         options: { lines: 4, delimiter: '' }
       });
   });
+  it('should provide fileNames starting with numbers also', () => {
+    assert.deepStrictEqual(parseArgs(['123.txt']),
+      {
+        fileNames: ['123.txt'],
+        options: { lines: 10, delimiter: '\n' }
+      });
+  });
+
 });
