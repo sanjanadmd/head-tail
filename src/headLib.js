@@ -9,7 +9,15 @@ const head = (content, { lines, delimiter }) => {
 };
 
 const headMain = (readFile, fileName, options) => {
-  const content = readFile(fileName, 'utf8');
+  let content;
+  try {
+    content = readFile(fileName, 'utf8');
+  } catch (error) {
+    throw {
+      name: 'FileReadError',
+      message: `${fileName} is not readable`,
+    };
+  }
   return head(content, options);
 };
 

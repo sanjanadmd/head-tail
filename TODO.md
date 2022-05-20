@@ -2,7 +2,6 @@
 
 - [ ] Implement -n option
 - [ ] Implement -c option
-- [ ] Report error when file not found
 - [ ] Implement default options to head function
 - [ ] Parse commandLine inputs and return options
 - [ ] Dealing `head` with files
@@ -14,6 +13,7 @@
 
 **DONE**
 
+- [x] Report error when file is not readable
 - [x] Add number of bytes option
 - [x] Add number of lines option
 - [x] Modify contract of head to take options
