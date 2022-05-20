@@ -2,15 +2,15 @@ const { extractLines, joinLines } = require('./stringUtils.js');
 
 const firstNLines = (lines, count) => lines.slice(0, count);
 
-const head = (content, numberOfLines) => {
-  const allLines = extractLines(content, '\n');
-  const lines = firstNLines(allLines, numberOfLines);
-  return joinLines(lines, '\n');
+const head = (content, { lines, delimiter }) => {
+  const allLines = extractLines(content, delimiter);
+  const filteredLines = firstNLines(allLines, lines);
+  return joinLines(filteredLines, delimiter);
 };
 
-const headMain = (readFile, fileName, { lines }) => {
+const headMain = (readFile, fileName, options) => {
   const content = readFile(fileName, 'utf8');
-  return head(content, lines);
+  return head(content, options);
 };
 
 exports.head = head;

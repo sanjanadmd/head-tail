@@ -3,17 +3,29 @@ const { head, firstNLines } = require('../src/headLib.js');
 
 describe('head', () => {
   it('should display first line ', () => {
-    assert.strictEqual(head('a', 1), 'a');
-    assert.strictEqual(head('hello\nbye', 1), 'hello');
+    const options = { lines: 1, delimiter: '\n' };
+    assert.strictEqual(head('', options), '');
+    assert.strictEqual(head('a', options), 'a');
+    assert.strictEqual(head('hello\nbye', options), 'hello');
   });
 
   it('should display first 2 lines', () => {
-    assert.strictEqual(head('hello\nbye', 2), 'hello\nbye');
-    assert.strictEqual(head('a\nb\nc', 2), 'a\nb');
+    const options = { lines: 2, delimiter: '\n' };
+    assert.strictEqual(head('hello\nbye', options), 'hello\nbye');
+    assert.strictEqual(head('a\nb\nc', options), 'a\nb');
   });
 
-  it('should display empty line', () => {
-    assert.strictEqual(head('', 1), '');
+  it('should display first character ', () => {
+    const options = { lines: 1, delimiter: '' };
+    assert.strictEqual(head('', options), '');
+    assert.strictEqual(head('a', options), 'a');
+    assert.strictEqual(head('hello\nbye', options), 'h');
+  });
+
+  it('should display first 5 characters ', () => {
+    const options = { lines: 5, delimiter: '' };
+    assert.strictEqual(head('a', options), 'a');
+    assert.strictEqual(head('hello\nbye', options), 'hello');
   });
 });
 

@@ -2,11 +2,10 @@
 
 - [ ] Implement -n option
 - [ ] Implement -c option
-- [ ] Add number of lines option
-- [ ] Add number of bytes option
 - [ ] Report error when file not found
-- [ ] Modify contract of head to take options
 - [ ] Implement default options to head function
+- [ ] Parse commandLine inputs and return options
+- [ ] Dealing `head` with files
 - [ ] Remove testStringUtils.js
 
 **MAYBE**
@@ -15,6 +14,9 @@
 
 **DONE**
 
+- [x] Add number of bytes option
+- [x] Add number of lines option
+- [x] Modify contract of head to take options
 - [x] Modify contract of joinLines to take delimiter and lines
 - [x] Modify contract of extractLines to take delimiter and content
 - [x] Seperate headMain tests
