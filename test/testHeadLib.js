@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { head, firstNLines } = require('../src/headLib.js');
+const { head, sliceUpto } = require('../src/headLib.js');
 
 describe('head', () => {
   it('should display first line ', () => {
@@ -29,23 +29,23 @@ describe('head', () => {
   });
 });
 
-describe('firstNLines', () => {
+describe('sliceUpto', () => {
   it('should return first line', () => {
-    assert.deepStrictEqual(firstNLines(['hello'], 1), ['hello']);
-    assert.deepStrictEqual(firstNLines(['hello', 'bye'], 1), ['hello']);
+    assert.deepStrictEqual(sliceUpto(['hello'], 1), ['hello']);
+    assert.deepStrictEqual(sliceUpto(['hello', 'bye'], 1), ['hello']);
   });
 
   it('should return first 2 lines', () => {
-    assert.deepStrictEqual(firstNLines(['hello'], 2), ['hello']);
-    assert.deepStrictEqual(firstNLines(['hello', 'bye'], 2), ['hello', 'bye']);
-    assert.deepStrictEqual(firstNLines(['a', 'b', 'c'], 2), ['a', 'b']);
+    assert.deepStrictEqual(sliceUpto(['hello'], 2), ['hello']);
+    assert.deepStrictEqual(sliceUpto(['hello', 'bye'], 2), ['hello', 'bye']);
+    assert.deepStrictEqual(sliceUpto(['a', 'b', 'c'], 2), ['a', 'b']);
   });
 
   it('should return empty line', () => {
-    assert.deepStrictEqual(firstNLines([''], 1), ['']);
+    assert.deepStrictEqual(sliceUpto([''], 1), ['']);
   });
 
   it('should return empty array', () => {
-    assert.deepStrictEqual(firstNLines([], 1), []);
+    assert.deepStrictEqual(sliceUpto([], 1), []);
   });
 });

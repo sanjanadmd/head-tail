@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { parseArgs } = require('../parseArgs');
+const { parseArgs } = require('../src/parseArgs');
 
 describe('parseArgs', () => {
   it('should provide all fileNames and default options', () => {
@@ -39,6 +39,13 @@ describe('parseArgs', () => {
       {
         fileNames: ['123.txt'],
         options: { lines: 10, delimiter: '\n' }
+      });
+  });
+  it('should not provide fileNames starting with hyphen', () => {
+    assert.deepStrictEqual(parseArgs(['-hello.txt']),
+      {
+        fileNames: [],
+        options: { lines: NaN, delimiter: undefined }
       });
   });
 
