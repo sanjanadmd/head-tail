@@ -14,4 +14,7 @@
 
   head -c bytes file -
     display first bytes of specified files
+  
+  head --help
+    display options available
 ``` 
