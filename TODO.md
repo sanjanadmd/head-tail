@@ -1,17 +1,19 @@
 **TODO**
 
-- [ ] Seperate headMain tests
 - [ ] Implement -n option
 - [ ] Implement -c option
 - [ ] Report error when file not found
 - [ ] Modify contract of head to take options
 - [ ] Implement default options to head function
+- [ ] Remove testStringUtils.js
 
 **MAYBE**
 
+- [ ] Remove tests for firstNLines
 
 **DONE**
 
+- [x] Seperate headMain tests
 - [x] Modify parameters of headMain to take objects
 - [x] Add feature to pass a file and get back number of lines we require
 - [x] Add headMain function to pass the file

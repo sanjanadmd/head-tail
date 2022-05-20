@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { head, firstNLines, headMain } = require('../src/headLib.js');
+const { head, firstNLines } = require('../src/headLib.js');
 
 describe('head', () => {
   it('should display first line ', () => {
@@ -35,34 +35,5 @@ describe('firstNLines', () => {
 
   it('should return empty array', () => {
     assert.deepStrictEqual(firstNLines([], 1), []);
-  });
-});
-
-const shouldReturn = (expectedFile, content) => {
-  return (fileName, encoding) => {
-    assert.strictEqual(fileName, expectedFile);
-    assert.strictEqual(encoding, 'utf8');
-    return content;
-  };
-};
-
-describe('headMain', () => {
-  it('should give first line from the file', () => {
-    const mockReadFile = shouldReturn('./a.txt', 'hello');
-    assert.strictEqual(headMain(mockReadFile, './a.txt', {
-      lines: 2
-    }), 'hello');
-  });
-
-  it('should give first 3 lines from the file', () => {
-    let mockReadFile = shouldReturn('./a.txt', 'a\nb\nc');
-    assert.strictEqual(headMain(mockReadFile, './a.txt', {
-      lines: 3
-    }), 'a\nb\nc');
-
-    mockReadFile = shouldReturn('./a.txt', 'hello');
-    assert.strictEqual(headMain(mockReadFile, './a.txt', {
-      lines: 3
-    }), 'hello');
   });
 });
