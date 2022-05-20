@@ -8,6 +8,11 @@ const head = (content, numberOfLines) => {
   return joinLines(lines);
 };
 
-exports.head = head;
+const headMain = (readFile, fileName, lines) => {
+  const content = readFile(fileName, 'utf8');
+  return head(content, lines);
+};
 
+exports.head = head;
+exports.headMain = headMain;
 exports.firstNLines = firstNLines;

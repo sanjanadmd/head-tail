@@ -1,14 +1,16 @@
 **TODO**
 
 - [ ] Implement -n option
-- [ ] Implement default option to head function
-- [ ] Add feature to pass a file and get back number of lines we require
+- [ ] Modify contract of head to take options
+- [ ] Implement default options to head function
 
 **MAYBE**
 
 
 **DONE**
 
+- [x] Add feature to pass a file and get back number of lines we require
+- [x] Add headMain function to pass the file
 - [x] Fix contract of `head` function to take lines with number of lines and get
  back lines we want
 - [x] Seperate extractLines and joinLines to stringUtils.js
