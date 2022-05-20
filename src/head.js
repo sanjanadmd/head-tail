@@ -1,10 +1,10 @@
-const firstLine = (lines) => lines.slice(0, 1);
+const firstNLines = (lines, count) => lines.slice(0, count);
 
 const head = (content) => {
   const lines = content.split('\n');
-  const line = firstLine(lines);
-  return line.join('\n');
+  const firstLine = firstNLines(lines, 1);
+  return firstLine.join('\n');
 };
 
 exports.head = head;
-exports.firstLine = firstLine;
+exports.firstNLines = firstNLines;

@@ -1,9 +1,8 @@
 **TODO**
 
 - [ ] Rename head.js in src to headLib.js
-- [ ] Modify firstLine function to firstNlines 
-- [ ] Modify firstLine contract to take count with lines and give back count lines
-- [ ] Fix contract of head function to take lines and give back given number of 
+- [ ] Seperate `split` and `join` from head
+- [ ] Fix contract of `head` function to take lines and give back given number of 
 lines
 
 **MAYBE**
@@ -11,6 +10,8 @@ lines
 
 **DONE**
 
+- [x] Modify `firstLine` contract to take count with lines and give back count lines
+- [x] Modify `firstLine` function to `firstNlines` 
 - [x] Add a function which takes lines and gives back first line
 - [x] Make 'head' to display single line
 - [x] Write a test
