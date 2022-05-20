@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { head, firstNLines } = require('../src/head.js');
+const { head, firstNLines } = require('../src/headLib.js');
 
 describe('head', () => {
   it('should display single line', () => {

@@ -1,7 +1,7 @@
 **TODO**
 
-- [ ] Rename head.js in src to headLib.js
 - [ ] Seperate `split` and `join` from head
+- [ ] Implement -n option
 - [ ] Fix contract of `head` function to take lines and give back given number of 
 lines
 
@@ -10,6 +10,7 @@ lines
 
 **DONE**
 
+- [x] Rename head.js in src to headLib.js
 - [x] Modify `firstLine` contract to take count with lines and give back count lines
 - [x] Modify `firstLine` function to `firstNlines` 
 - [x] Add a function which takes lines and gives back first line
