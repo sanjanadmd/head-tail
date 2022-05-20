@@ -5,14 +5,14 @@ const parseArgs = (args) => {
   for (let index = 0; index < args.length; index++) {
     if (args[index].match(/^-/)) {
       newOptions.delimiter = defaultOptions[args[index]];
+      newOptions.lines = +args[index + 1];
+      index++;
     } else if (args[index].match(/^[^-\d]/)) {
       fileNames.push(args[index]);
-    } else {
-      newOptions.lines = +args[index];
     }
   }
 
-  return { fileName: fileNames, options: newOptions };
+  return { fileNames, options: newOptions };
 };
 
 exports.parseArgs = parseArgs;

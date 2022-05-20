@@ -1,9 +1,11 @@
 **TODO**
 
-- [ ] Implement -n option
-- [ ] Implement -c option
+- [ ] Implement -n option from command line
+- [ ] Implement -c option from command line
 - [ ] Implement default options to head function
 - [ ] Dealing `head` with files
+- [ ] Refactor parseArgs
+- [ ] Linking parseArgs to head.js
 - [ ] Rename firstNLines function
 - [ ] Remove testStringUtils.js
 
