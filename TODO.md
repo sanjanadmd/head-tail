@@ -2,6 +2,8 @@
 
 - [ ] Implement -n option
 - [ ] Implement -c option
+- [ ] Add number of lines option
+- [ ] Add number of bytes option
 - [ ] Report error when file not found
 - [ ] Modify contract of head to take options
 - [ ] Implement default options to head function
@@ -13,6 +15,8 @@
 
 **DONE**
 
+- [x] Modify contract of joinLines to take delimiter and lines
+- [x] Modify contract of extractLines to take delimiter and content
 - [x] Seperate headMain tests
 - [x] Modify parameters of headMain to take objects
 - [x] Add feature to pass a file and get back number of lines we require

@@ -3,9 +3,9 @@ const { extractLines, joinLines } = require('./stringUtils.js');
 const firstNLines = (lines, count) => lines.slice(0, count);
 
 const head = (content, numberOfLines) => {
-  const allLines = extractLines(content);
+  const allLines = extractLines(content, '\n');
   const lines = firstNLines(allLines, numberOfLines);
-  return joinLines(lines);
+  return joinLines(lines, '\n');
 };
 
 const headMain = (readFile, fileName, { lines }) => {
