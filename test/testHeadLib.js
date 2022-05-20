@@ -2,18 +2,19 @@ const assert = require('assert');
 const { head, firstNLines } = require('../src/headLib.js');
 
 describe('head', () => {
-  it('should display single line', () => {
-    assert.strictEqual(head('hello'), 'hello');
-    assert.strictEqual(head('bye'), 'bye');
+
+  it('should display first line ', () => {
+    assert.strictEqual(head('a', 1), 'a');
+    assert.strictEqual(head('hello\nbye', 1), 'hello');
+  });
+
+  it('should display first 2 lines', () => {
+    assert.strictEqual(head('hello\nbye', 2), 'hello\nbye');
+    assert.strictEqual(head('a\nb\nc', 2), 'a\nb');
   });
 
   it('should display empty line', () => {
-    assert.strictEqual(head(''), '');
-  });
-
-  it('should display first line of given lines', () => {
-    assert.strictEqual(head('hello\nbye'), 'hello');
-    assert.strictEqual(head('hello\nbye\ngood'), 'hello');
+    assert.strictEqual(head('', 1), '');
   });
 });
 
