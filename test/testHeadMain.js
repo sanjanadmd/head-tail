@@ -11,36 +11,28 @@ const shouldReturn = (expectedFile, content) => {
 
 describe('headMain', () => {
   it('should give number of lines required from the file', () => {
-    let mockReadFile = shouldReturn('./a.txt', 'hello');
-    let parameters = {
-      fileName: './a.txt', options: { lines: 2, delimiter: '\n' }
-    };
-    assert.strictEqual(headMain(mockReadFile, parameters), 'hello');
-    parameters = {
-      fileName: './a.txt', options: { lines: 3, delimiter: '\n' }
-    };
+    let mockReadFile = shouldReturn('a.txt', 'hello');
+    assert.strictEqual(headMain(mockReadFile, ['-n', '2', 'a.txt']), 'hello');
 
-    mockReadFile = shouldReturn('./a.txt', 'a\nb\nc');
-    assert.strictEqual(headMain(mockReadFile, parameters), 'a\nb\nc');
+    mockReadFile = shouldReturn('a.txt', 'a\nb\nc');
+    assert.strictEqual(headMain(mockReadFile, ['-n', '3', 'a.txt']), 'a\nb\nc');
 
-    mockReadFile = shouldReturn('./a.txt', 'as\nan\nit\ndo');
-    assert.strictEqual(headMain(mockReadFile, parameters), 'as\nan\nit');
+    mockReadFile = shouldReturn('a.txt', 'as\nan\nit\ndo');
+    assert.strictEqual(headMain(mockReadFile,
+      ['-n', '3', 'a.txt']), 'as\nan\nit');
   });
 
   it('should give number of bytes required from the file', () => {
-    const mockReadFile = shouldReturn('./a.txt', 'a\nb\nc');
-    const options = { lines: 3, delimiter: '' };
-    const parameters = { fileName: './a.txt', options };
-    assert.strictEqual(headMain(mockReadFile, parameters), 'a\nb');
+    const mockReadFile = shouldReturn('a.txt', 'a\nb\nc');
+    assert.strictEqual(headMain(mockReadFile, ['-c', '3', 'a.txt']), 'a\nb');
   });
 
   it('should throw an error when file is not readable', () => {
-    const mockReadFile = shouldReturn('./a.txt', 'a\nb\nc');
-    const options = { lines: 1, delimiter: '' };
-    const parameters = { fileName: './b.txt', options };
-    assert.throws(() => headMain(mockReadFile, parameters), {
+    const mockReadFile = shouldReturn('a.txt', 'a\nb\nc');
+    assert.throws(() => headMain(
+      mockReadFile, ['-c', '1', 'b.txt']), {
       name: 'FileReadError',
-      message: './b.txt is not readable',
+      message: 'b.txt is not readable',
     });
   });
 });

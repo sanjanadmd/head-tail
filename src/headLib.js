@@ -1,4 +1,5 @@
 const { extractLines, joinLines } = require('./stringUtils.js');
+const { parseArgs } = require('./parseArgs.js');
 
 const sliceUpto = (lines, count) => lines.slice(0, count);
 
@@ -8,7 +9,9 @@ const head = (content, { lines, delimiter }) => {
   return joinLines(filteredLines, delimiter);
 };
 
-const headMain = (readFile, { fileName, options }) => {
+const headMain = (readFile, args) => {
+  const { fileNames, options } = parseArgs(args);
+  const fileName = fileNames[0];
   let content;
   try {
     content = readFile(fileName, 'utf8');
