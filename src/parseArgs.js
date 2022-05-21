@@ -11,19 +11,16 @@ const getOption = (option, existingOptions) => {
 };
 
 const validateOption = (defaultOptions, option, newOption) => {
-  const error = {};
   if (doesExist(newOption, defaultOptions) === false) {
-    error.name = `illegal option ${newOption}`;
-    error.message = 'usage: head [-n lines | -c bytes] [file ...]';
+    return { message: `illegal option ${newOption}` };
   } else if (option !== newOption) {
-    error.name = 'SyntaxError';
-    error.message = 'can not combine line and byte counts';
+    return { message: 'can not combine line and byte counts' };
   }
-  return error;
+  return '';
 };
 
 const parseArgs = (args) => {
-  const existingOptions = ['-n', '-c'];
+  const existingOptions = ['-n', '-c', '--help'];
   const options = { lines: 10, option: '\n' };
   const fileNames = [];
   options.option = getOption(args[0], existingOptions);
@@ -33,7 +30,7 @@ const parseArgs = (args) => {
       return { fileNames, options };
     }
     const error = validateOption(existingOptions, options.option, args[index]);
-    if (Object.keys(error).length > 0) {
+    if (error !== '') {
       throw error;
     }
     options.lines = +args[index + 1];

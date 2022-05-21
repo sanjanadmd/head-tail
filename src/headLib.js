@@ -16,23 +16,17 @@ const head = (content, { lines, option }) => {
 };
 
 const headMain = (readFile, args) => {
-  let fileNames, options;
-  try {
-    ({ fileNames, options } = parseArgs(args));
-  } catch (error) {
-    return `head: ${error.name}\n${error.message}`;
+  const { fileNames, options } = parseArgs(args);
+  const result = [];
+  for (let index = 0; index < fileNames.length; index++) {
+    try {
+      const content = readFile(fileNames[index], 'utf8');
+      result.push(head(content, options));
+    } catch (error) {
+      throw { message: `${fileNames[index]} is not readable` };
+    }
   }
-  const fileName = fileNames[0];
-  let content;
-  try {
-    content = readFile(fileName, 'utf8');
-  } catch (error) {
-    throw {
-      name: 'FileReadError',
-      message: `${fileName} is not readable`,
-    };
-  }
-  return head(content, options);
+  return result.join('\n');
 };
 
 exports.head = head;

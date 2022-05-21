@@ -1,7 +1,7 @@
 **TODO**
 
 - [ ] Refactor parseArgs
-- [ ] Modify headMain to make it work for multiple files
+- [ ] Add header as a fileName while heading multiple files
 - [ ] Handle multiple options at the same time
 - [ ] Adding header when we have multiple files
 - [ ] Remove testStringUtils.js
@@ -12,6 +12,7 @@
 
 **DONE**
 
+- [x] Modify headMain to make it work for multiple files
 - [x] Catch errors while parsing
 - [x] Implement default options to head function
 - [x] Investigate about how head behaves when it find fileNames starting with hypen

@@ -43,41 +43,31 @@ describe('parseArgs', () => {
   });
   it('should not provide fileNames starting with hyphen', () => {
     assert.throws(() => parseArgs(['-hello.txt']),
-      {
-        name: 'illegal option -hello.txt',
-        message: 'usage: head [-n lines | -c bytes] [file ...]'
-      });
+      { message: 'illegal option -hello.txt' });
   });
 
   it('should not change option once it is fixed in the start', () => {
     assert.throws(() => parseArgs(['-n', '4', '-c', 1, 'a.txt']),
-      {
-        name: 'SyntaxError',
-        message: 'can not combine line and byte counts'
-      }
-    );
+      { message: 'can not combine line and byte counts' });
   });
 
 });
 
 describe('validateOptions', () => {
   it('should return an error when option not found', () => {
-    assert.deepStrictEqual(validateOption([], '-n', '-a'), {
-      name: 'illegal option -a',
-      message: 'usage: head [-n lines | -c bytes] [file ...]'
-    });
+    assert.deepStrictEqual(validateOption([], '-n', '-a'),
+      { message: 'illegal option -a' });
   });
 
   it('should return an error when option won\'t match with given value', () => {
-    assert.deepStrictEqual(validateOption(['-n', '-c'], '-n', '-c'), {
-      name: 'SyntaxError',
-      message: 'can not combine line and byte counts'
-    });
+    assert.deepStrictEqual(validateOption(['-n', '-c'], '-n', '-c'),
+      { message: 'can not combine line and byte counts' });
 
   });
-  it('should give empty obj when newOption is found and same as given option',
+  it(
+    'should give empty string when newOption is found and same as given option',
     () => {
-      assert.deepStrictEqual(validateOption(['-n'], '-n', '-n'), {});
+      assert.strictEqual(validateOption(['-n'], '-n', '-n'), '');
     });
 });
 
