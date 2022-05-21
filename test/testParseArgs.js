@@ -44,8 +44,8 @@ describe('parseArgs', () => {
   it('should not provide fileNames starting with hyphen', () => {
     assert.throws(() => parseArgs(['-hello.txt']),
       {
-        name: 'illegal Option',
-        message: 'option not found'
+        name: 'illegal option -hello.txt',
+        message: 'usage: head [-n lines | -c bytes] [file ...]'
       });
   });
 
@@ -63,8 +63,8 @@ describe('parseArgs', () => {
 describe('validateOptions', () => {
   it('should return an error when option not found', () => {
     assert.deepStrictEqual(validateOption([], '-n', '-a'), {
-      name: 'illegal Option',
-      message: 'option not found'
+      name: 'illegal option -a',
+      message: 'usage: head [-n lines | -c bytes] [file ...]'
     });
   });
 

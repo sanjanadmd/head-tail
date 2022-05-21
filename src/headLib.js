@@ -16,7 +16,12 @@ const head = (content, { lines, option }) => {
 };
 
 const headMain = (readFile, args) => {
-  const { fileNames, options } = parseArgs(args);
+  let fileNames, options;
+  try {
+    ({ fileNames, options } = parseArgs(args));
+  } catch (error) {
+    return `head: ${error.name}\n${error.message}`;
+  }
   const fileName = fileNames[0];
   let content;
   try {

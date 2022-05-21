@@ -13,8 +13,8 @@ const getOption = (option, existingOptions) => {
 const validateOption = (defaultOptions, option, newOption) => {
   const error = {};
   if (doesExist(newOption, defaultOptions) === false) {
-    error.name = 'illegal Option';
-    error.message = 'option not found';
+    error.name = `illegal option ${newOption}`;
+    error.message = 'usage: head [-n lines | -c bytes] [file ...]';
   } else if (option !== newOption) {
     error.name = 'SyntaxError';
     error.message = 'can not combine line and byte counts';

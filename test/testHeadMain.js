@@ -35,4 +35,11 @@ describe('headMain', () => {
       message: 'b.txt is not readable',
     });
   });
+
+  it('should return an error when option is invalid', () => {
+    const mockReadFile = shouldReturn('a.txt', 'a\nb\nc');
+    assert.strictEqual(headMain(
+      mockReadFile, ['-a', '1', 'a.txt']),
+      'head: illegal option -a\nusage: head [-n lines | -c bytes] [file ...]');
+  });
 });
