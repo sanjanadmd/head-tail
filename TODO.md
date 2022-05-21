@@ -1,7 +1,5 @@
 **TODO**
 
-- [ ] Implement -n option from command line
-- [ ] Implement -c option from command line
 - [ ] Handle multiple options at the same time
 - [ ] Implement default options to head function
 - [ ] Investigate about how head behaves when it find fileNames starting with hypen
@@ -14,6 +12,8 @@
 
 **DONE**
 
+- [x] Implement -n option from command line
+- [x] Implement -c option from command line
 - [x] Dealing `head` with files
 - [x] Linking parseArgs to head.js
 - [x] Rename firstNLines function to sliceUpto
