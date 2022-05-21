@@ -1,8 +1,7 @@
 **TODO**
 
 - [ ] Refactor parseArgs
-- [ ] Handle multiple options at the same time
-- [ ] Adding header when we have multiple files
+- [ ] Dealing arguments when option and number are combined 
 - [ ] Remove testStringUtils.js
 
 **MAYBE**
@@ -11,6 +10,8 @@
 
 **DONE**
 
+- [x] Adding header when we have multiple files
+- [x] Handle multiple options at the same time
 - [x] Add header as a fileName while heading multiple files
 - [x] Modify headMain to make it work for multiple files
 - [x] Catch errors while parsing

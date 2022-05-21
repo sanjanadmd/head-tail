@@ -27,6 +27,13 @@ const formatResult = (results) => {
 
 const headMain = (readFile, args) => {
   const { fileNames, options } = parseArgs(args);
+
+  if (!isFinite(options.lines)) {
+    throw { message: `option requires an argument ${options.option}` };
+  }
+  if (options.option === '--help') {
+    return 'usage: head [-n lines | -c bytes] [file ...]';
+  }
   const results = fileNames.map((fileName) => {
     try {
       const content = readFile(fileName, 'utf8');

@@ -33,6 +33,12 @@ describe('headMain', () => {
       mockReadFile, ['-c', '1', 'b.txt']), 'b.txt is not readable');
   });
 
+  it('should throw an error when options not provided argument', () => {
+    const mockReadFile = shouldReturn('a.txt', 'a\nb\nc');
+    assert.throws(() => headMain(
+      mockReadFile, ['-n']), { message: 'option requires an argument -n' });
+  });
+
   it('should return content of all given files', () => {
     const mockReadFile = shouldReturn('a.txt', 'a\nb\nc');
     assert.strictEqual(headMain(mockReadFile, ['-n', '1', 'a.txt', 'a.txt']),
