@@ -29,14 +29,13 @@ describe('headMain', () => {
 
   it('should throw an error when file is not readable', () => {
     const mockReadFile = shouldReturn('a.txt', 'a\nb\nc');
-    assert.throws(() => headMain(
-      mockReadFile, ['-c', '1', 'b.txt']),
-      { message: 'b.txt is not readable' });
+    assert.strictEqual(headMain(
+      mockReadFile, ['-c', '1', 'b.txt']), 'b.txt is not readable');
   });
 
   it('should return content of all given files', () => {
     const mockReadFile = shouldReturn('a.txt', 'a\nb\nc');
     assert.strictEqual(headMain(mockReadFile, ['-n', '1', 'a.txt', 'a.txt']),
-      'a\na');
+      '===> a.txt <===\na\n\n===> a.txt <===\na\n');
   });
 });

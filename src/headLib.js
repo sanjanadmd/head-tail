@@ -15,18 +15,30 @@ const head = (content, { lines, option }) => {
   return joinLines(filteredLines, delimiter);
 };
 
+const formatResult = (results) => {
+  const formatted = results.map(({ fileName, result }) => {
+    if (fileName !== undefined) {
+      return `===> ${fileName} <===\n${result}\n`;
+    }
+    return result;
+  });
+  return formatted.join('\n');
+};
+
 const headMain = (readFile, args) => {
   const { fileNames, options } = parseArgs(args);
-  const result = [];
-  for (let index = 0; index < fileNames.length; index++) {
+  const results = fileNames.map((fileName) => {
     try {
-      const content = readFile(fileNames[index], 'utf8');
-      result.push(head(content, options));
+      const content = readFile(fileName, 'utf8');
+      return { fileName, result: head(content, options) };
     } catch (error) {
-      throw { message: `${fileNames[index]} is not readable` };
+      return { result: `${fileName} is not readable` };
     }
+  });
+  if (fileNames.length > 1) {
+    return formatResult(results);
   }
-  return result.join('\n');
+  return results[0].result;
 };
 
 exports.head = head;

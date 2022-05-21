@@ -1,7 +1,6 @@
 **TODO**
 
 - [ ] Refactor parseArgs
-- [ ] Add header as a fileName while heading multiple files
 - [ ] Handle multiple options at the same time
 - [ ] Adding header when we have multiple files
 - [ ] Remove testStringUtils.js
@@ -12,6 +11,7 @@
 
 **DONE**
 
+- [x] Add header as a fileName while heading multiple files
 - [x] Modify headMain to make it work for multiple files
 - [x] Catch errors while parsing
 - [x] Implement default options to head function
