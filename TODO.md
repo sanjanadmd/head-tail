@@ -1,10 +1,12 @@
 **TODO**
 
+- [ ] Refactor parseArgs
+- [ ] Catch errors while parsing
+- [ ] Modify headMain to make it work for multiple files
 - [ ] Handle multiple options at the same time
 - [ ] Implement default options to head function
-- [ ] Investigate about how head behaves when it find fileNames starting with hypen
+- [ ] Adding header when we have multiple files
 - [ ] Remove testStringUtils.js
-- [ ] Seperate delimiter from parsing
 
 **MAYBE**
 
@@ -12,6 +14,8 @@
 
 **DONE**
 
+- [x] Investigate about how head behaves when it find fileNames starting with hypen
+- [x] Seperate delimiter from parsing
 - [x] Implement -n option from command line
 - [x] Implement -c option from command line
 - [x] Dealing `head` with files

@@ -1,17 +1,21 @@
-const setDelimiter = (key, defaultOptions) => {
-  if (defaultOptions[key] !== undefined) {
-    return defaultOptions[key];
-  }
-  return '\n';
+const doesExist = (item, list) => {
+  const existance = list.find((element) => element === item);
+  return existance !== undefined;
 };
 
-const validateOption = (defaultOptions, delimiter, option) => {
+const getOption = (option, existingOptions) => {
+  if (doesExist(option, existingOptions)) {
+    return option;
+  }
+  return '-n';
+};
+
+const validateOption = (defaultOptions, option, newOption) => {
   const error = {};
-  if (defaultOptions[option] === undefined) {
+  if (doesExist(newOption, defaultOptions) === false) {
     error.name = 'illegal Option';
     error.message = 'option not found';
-  }
-  if (delimiter !== defaultOptions[option]) {
+  } else if (option !== newOption) {
     error.name = 'SyntaxError';
     error.message = 'can not combine line and byte counts';
   }
@@ -19,20 +23,18 @@ const validateOption = (defaultOptions, delimiter, option) => {
 };
 
 const parseArgs = (args) => {
-  const defaultOptions = { '-n': '\n', '-c': '' };
-  const options = { lines: 10, delimiter: '\n' };
+  const existingOptions = ['-n', '-c'];
+  const options = { lines: 10, option: '\n' };
   const fileNames = [];
-  options.delimiter = setDelimiter(args[0], defaultOptions);
+  options.option = getOption(args[0], existingOptions);
   for (let index = 0; index < args.length; index += 2) {
     if (args[index].match(/^[^-]/)) {
       fileNames.push(...args.slice(index));
       return { fileNames, options };
     }
-    const error = validateOption(
-      defaultOptions, options.delimiter, args[index]
-    );
+    const error = validateOption(existingOptions, options.option, args[index]);
     if (Object.keys(error).length > 0) {
-      return { error };
+      throw error;
     }
     options.lines = +args[index + 1];
   }
@@ -41,5 +43,5 @@ const parseArgs = (args) => {
 };
 
 exports.parseArgs = parseArgs;
-exports.setDelimiter = setDelimiter;
+exports.getOption = getOption;
 exports.validateOption = validateOption;

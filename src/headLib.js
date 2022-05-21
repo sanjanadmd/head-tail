@@ -3,7 +3,13 @@ const { parseArgs } = require('./parseArgs.js');
 
 const sliceUpto = (lines, count) => lines.slice(0, count);
 
-const head = (content, { lines, delimiter }) => {
+const getDelimiter = (option) => {
+  const options = { '-n': '\n', '-c': '' };
+  return options[option];
+};
+
+const head = (content, { lines, option }) => {
+  const delimiter = getDelimiter(option);
   const allLines = extractLines(content, delimiter);
   const filteredLines = sliceUpto(allLines, lines);
   return joinLines(filteredLines, delimiter);
