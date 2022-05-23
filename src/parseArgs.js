@@ -58,7 +58,6 @@ const parseArgs = (args) => {
     options.lines = +newArgs[index + 1];
   }
   validateFiles(fileNames);
-  // return { fileNames, options };
 };
 
 exports.parseArgs = parseArgs;
