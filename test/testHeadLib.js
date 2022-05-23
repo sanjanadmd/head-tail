@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { head, sliceUpto } = require('../src/headLib.js');
+const { head, sliceUpto, formatResult } = require('../src/headLib.js');
 
 describe('head', () => {
   it('should display first line ', () => {
@@ -47,5 +47,22 @@ describe('sliceUpto', () => {
 
   it('should return empty array', () => {
     assert.deepStrictEqual(sliceUpto([], 1), []);
+  });
+});
+
+describe('formatResult', () => {
+  it('should return unformatted result when there is only one file', () => {
+    assert.deepStrictEqual(formatResult([
+      { fileName: 'a.txt', result: 'n', type: 'log' }
+    ]), [{ result: 'n', type: 'log' }]);
+  });
+  it('should return unformatted result when there is only one file', () => {
+    assert.deepStrictEqual(formatResult([
+      { fileName: 'a.txt', result: 'a', type: 'log' },
+      { fileName: 'b.txt', result: 'b', type: 'error' }
+    ]), [
+      { result: '==> a.txt <==\na\n', type: 'log' },
+      { result: '==> b.txt <==\nb\n', type: 'error' }
+    ]);
   });
 });

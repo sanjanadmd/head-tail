@@ -17,15 +17,15 @@ const head = (content, { lines, option }) => {
 
 const formatResult = (results) => {
   if (results.length < 2) {
-    return results[0].result || '';
+    return [{ result: results[0].result, type: results[0].type }];
   }
-  const formatted = results.map(({ fileName, result }) => {
+  return results.map(({ fileName, result, type }) => {
     if (fileName !== undefined) {
-      return `==> ${fileName} <==\n${result}\n`;
+      return { result: `==> ${fileName} <==\n${result}\n`, type };
     }
-    return result;
+    return { result, type };
   });
-  return formatted.join('\n');
+
 };
 
 const headMain = (readFile, args) => {
@@ -33,14 +33,15 @@ const headMain = (readFile, args) => {
   const results = fileNames.map((fileName) => {
     try {
       const content = readFile(fileName, 'utf8');
-      return { fileName, result: head(content, options) };
+      return { fileName, result: head(content, options), type: 'log' };
     } catch (error) {
-      return { result: `${fileName} is not readable` };
+      return { result: `${fileName} is not readable`, type: 'error' };
     }
   });
-  return formatResult(results);
+  return formatResult(results).map(({ result }) => result).join('\n');
 };
 
 exports.head = head;
 exports.headMain = headMain;
+exports.formatResult = formatResult;
 exports.sliceUpto = sliceUpto;

@@ -2,12 +2,11 @@
 
 - [ ] Add details about `tail` in README.md
 - [ ] Make parseArgs work for multiple numbered options
+- [ ] Use the type in result to display data in console or error stream
 - [ ] Refactor parseArgs
 - [ ] Remove testStringUtils.js
 
 **MAYBE**
-
-- [ ] Remove tests for firstNLines
 
 **DONE**
 

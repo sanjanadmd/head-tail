@@ -36,6 +36,7 @@ const validateLines = (argument, options) => {
 const validateFiles = (files) => {
   if (files.length < 1) {
     throw {
+      name: 'File not provided',
       message: 'usage: head [-n lines | -c bytes] [file ...]'
     };
   }
