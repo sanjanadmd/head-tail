@@ -34,7 +34,7 @@ const displayResult = (display, results) => {
   });
 };
 
-const headMain = (readFile, args) => {
+const headMain = (readFile, args, display) => {
   const { fileNames, options } = parseArgs(args);
   const results = fileNames.map((fileName) => {
     try {
@@ -44,7 +44,7 @@ const headMain = (readFile, args) => {
       return { result: `${fileName} is not readable`, type: 'error' };
     }
   });
-  return formatResult(results).map(({ result }) => result).join('\n');
+  displayResult(display, formatResult(results));
 };
 
 exports.head = head;

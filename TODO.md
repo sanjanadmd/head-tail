@@ -2,7 +2,6 @@
 
 - [ ] Add details about `tail` in README.md
 - [ ] Make parseArgs work for multiple numbered options
-- [ ] Use the type in result to display data in console or error stream
 - [ ] Refactor parseArgs
 - [ ] Remove testStringUtils.js
 
@@ -10,6 +9,7 @@
 
 **DONE**
 
+- [x] Use the type in result to display data in console or error stream
 - [x] Dealing arguments when option and number are combined 
 - [x] Adding header when we have multiple files
 - [x] Handle multiple options at the same time
