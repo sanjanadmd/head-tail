@@ -1,6 +1,6 @@
 const assert = require('assert');
 const {
-  parseArgs, formatArgs, splitArgs, validateOption
+  parseArgs, formatArgs, splitArgs, validateOption, validateLines
 } = require('../src/parseArgs');
 
 describe('parseArgs', () => {
@@ -45,12 +45,15 @@ describe('parseArgs', () => {
   });
   it('should not provide fileNames starting with hyphen', () => {
     assert.throws(() => parseArgs(['-hello.txt']),
-      { message: 'illegal option -- h' });
+      {
+        name: 'illegal option -- h',
+        message: 'usage: head [-n lines | -c bytes] [file ...]'
+      });
   });
 
   it('should not change option once it is fixed in the start', () => {
     assert.throws(() => parseArgs(['-n', '4', '-c', '1', 'a.txt']),
-      { message: 'can not combine line and byte counts' });
+      { name: 'can not combine line and byte counts' });
   });
 
   it('should treat option with number as valid when it is first argument',
@@ -66,12 +69,15 @@ describe('parseArgs', () => {
 describe('validateOptions', () => {
   it('should return an error when option not found', () => {
     assert.throws(() => validateOption([], '-n', '-a'),
-      { message: 'illegal option -- a' });
+      {
+        name: 'illegal option -- a',
+        message: 'usage: head [-n lines | -c bytes] [file ...]'
+      });
   });
 
   it('should return an error when option won\'t match with given value', () => {
     assert.throws(() => validateOption(['-n', '-c'], '-n', '-c'),
-      { message: 'can not combine line and byte counts' });
+      { name: 'can not combine line and byte counts' });
 
   });
   it(
@@ -100,4 +106,23 @@ describe('splitArgs', () => {
     assert.deepStrictEqual(splitArgs('-n3'), ['-n', '3']);
     assert.deepStrictEqual(splitArgs('hello'), ['hello']);
   });
+});
+
+describe('validateLines', () => {
+  it('should throw error when argument is not a number',
+    () => {
+      assert.throws(() => validateLines('a', { option: '-n' }),
+        {
+          name: 'option requires an argument -- n',
+          message: 'usage: head [-n lines | -c bytes] [file ...]'
+        });
+    });
+
+  it('should throw error when argument is less than zero',
+    () => {
+      assert.throws(() => validateLines('-4', { option: '-n' }),
+        {
+          name: 'illegal line count -- -4'
+        });
+    });
 });

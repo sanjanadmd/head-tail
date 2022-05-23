@@ -13,9 +13,31 @@ const formatArgs = (args) => {
 
 const validateOption = (defaultOptions, option, argument) => {
   if (!defaultOptions.includes(argument)) {
-    throw { message: `illegal option -- ${argument.slice(1)}` };
+    throw {
+      name: `illegal option -- ${argument.slice(1)}`,
+      message: 'usage: head [-n lines | -c bytes] [file ...]'
+    };
   } else if (option !== argument) {
-    throw { message: 'can not combine line and byte counts' };
+    throw { name: 'can not combine line and byte counts' };
+  }
+};
+
+const validateLines = (argument, options) => {
+  if (!isFinite(+argument)) {
+    throw {
+      name: `option requires an argument -- ${options.option.slice(1)}`,
+      message: 'usage: head [-n lines | -c bytes] [file ...]'
+    };
+  } else if (+argument < 0) {
+    throw { name: `illegal line count -- ${argument}` };
+  }
+};
+
+const validateFiles = (files) => {
+  if (files.length < 1) {
+    throw {
+      message: 'usage: head [-n lines | -c bytes] [file ...]'
+    };
   }
 };
 
@@ -32,11 +54,15 @@ const parseArgs = (args) => {
       return { fileNames, options };
     }
     validateOption(['-n', '-c'], options.option, newArgs[index]);
+    validateLines(newArgs[index + 1], options);
     options.lines = +newArgs[index + 1];
   }
-  return { fileNames, options };
+  validateFiles(fileNames);
+  // return { fileNames, options };
 };
+
 exports.parseArgs = parseArgs;
 exports.validateOption = validateOption;
+exports.validateLines = validateLines;
 exports.formatArgs = formatArgs;
 exports.splitArgs = splitArgs;
