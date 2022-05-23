@@ -28,6 +28,12 @@ const formatResult = (results) => {
 
 };
 
+const displayResult = (display, results) => {
+  results.forEach(fileResult => {
+    display[fileResult.type](fileResult.result);
+  });
+};
+
 const headMain = (readFile, args) => {
   const { fileNames, options } = parseArgs(args);
   const results = fileNames.map((fileName) => {
@@ -45,3 +51,4 @@ exports.head = head;
 exports.headMain = headMain;
 exports.formatResult = formatResult;
 exports.sliceUpto = sliceUpto;
+exports.displayResult = displayResult;
