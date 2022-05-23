@@ -1,7 +1,8 @@
 **TODO**
 
+- [ ] Add details about `tail` in README.md
+- [ ] Make parseArgs work for multiple numbered options
 - [ ] Refactor parseArgs
-- [ ] Dealing arguments when option and number are combined 
 - [ ] Remove testStringUtils.js
 
 **MAYBE**
@@ -10,6 +11,7 @@
 
 **DONE**
 
+- [x] Dealing arguments when option and number are combined 
 - [x] Adding header when we have multiple files
 - [x] Handle multiple options at the same time
 - [x] Add header as a fileName while heading multiple files

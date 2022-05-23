@@ -1,44 +1,42 @@
-const doesExist = (item, list) => {
-  const existance = list.find((element) => element === item);
-  return existance !== undefined;
+const splitArgs = (argument) => {
+  return argument.startsWith('-') ?
+    [argument.slice(0, 2), argument.slice(2)] : [argument];
 };
 
-const getOption = (option, existingOptions) => {
-  if (doesExist(option, existingOptions)) {
-    return option;
+const formatArgs = (args) => {
+  const newArgs = args.slice(0);
+  if (args[0].startsWith('-') && isFinite(args[0])) {
+    newArgs[0] = '-n' + Math.abs(args[0]);
   }
-  return '-n';
+  return newArgs.flatMap(splitArgs).filter(argument => argument.length > 0);
 };
 
-const validateOption = (defaultOptions, option, newOption) => {
-  if (doesExist(newOption, defaultOptions) === false) {
-    return { message: `illegal option ${newOption}` };
-  } else if (option !== newOption) {
-    return { message: 'can not combine line and byte counts' };
+const validateOption = (defaultOptions, option, argument) => {
+  if (!defaultOptions.includes(argument)) {
+    throw { message: `illegal option -- ${argument.slice(1)}` };
+  } else if (option !== argument) {
+    throw { message: 'can not combine line and byte counts' };
   }
-  return '';
 };
 
 const parseArgs = (args) => {
-  const existingOptions = ['-n', '-c', '--help'];
-  const options = { lines: 10, option: '\n' };
+  const newArgs = formatArgs(args);
   const fileNames = [];
-  options.option = getOption(args[0], existingOptions);
-  for (let index = 0; index < args.length; index += 2) {
-    if (args[index].match(/^[^-]/)) {
-      fileNames.push(...args.slice(index));
+  const options = { option: '-n', lines: 10 };
+  if (newArgs[0].startsWith('-')) {
+    options.option = newArgs[0];
+  }
+  for (let index = 0; index < newArgs.length; index += 2) {
+    if (!newArgs[index].startsWith('-')) {
+      fileNames.push(...newArgs.slice(index));
       return { fileNames, options };
     }
-    const error = validateOption(existingOptions, options.option, args[index]);
-    if (error !== '') {
-      throw error;
-    }
-    options.lines = +args[index + 1];
+    validateOption(['-n', '-c'], options.option, newArgs[index]);
+    options.lines = +newArgs[index + 1];
   }
-
   return { fileNames, options };
 };
-
 exports.parseArgs = parseArgs;
-exports.getOption = getOption;
 exports.validateOption = validateOption;
+exports.formatArgs = formatArgs;
+exports.splitArgs = splitArgs;

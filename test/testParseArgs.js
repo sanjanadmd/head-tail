@@ -1,5 +1,7 @@
 const assert = require('assert');
-const { parseArgs, getOption, validateOption } = require('../src/parseArgs');
+const {
+  parseArgs, formatArgs, splitArgs, validateOption
+} = require('../src/parseArgs');
 
 describe('parseArgs', () => {
   it('should provide all fileNames and default options', () => {
@@ -43,42 +45,59 @@ describe('parseArgs', () => {
   });
   it('should not provide fileNames starting with hyphen', () => {
     assert.throws(() => parseArgs(['-hello.txt']),
-      { message: 'illegal option -hello.txt' });
+      { message: 'illegal option -- h' });
   });
 
   it('should not change option once it is fixed in the start', () => {
-    assert.throws(() => parseArgs(['-n', '4', '-c', 1, 'a.txt']),
+    assert.throws(() => parseArgs(['-n', '4', '-c', '1', 'a.txt']),
       { message: 'can not combine line and byte counts' });
   });
 
+  it('should treat option with number as valid when it is first argument',
+    () => {
+      assert.deepStrictEqual(parseArgs(['-1', 'a.txt']),
+        {
+          fileNames: ['a.txt'],
+          options: { lines: 1, option: '-n' }
+        });
+    });
 });
 
 describe('validateOptions', () => {
   it('should return an error when option not found', () => {
-    assert.deepStrictEqual(validateOption([], '-n', '-a'),
-      { message: 'illegal option -a' });
+    assert.throws(() => validateOption([], '-n', '-a'),
+      { message: 'illegal option -- a' });
   });
 
   it('should return an error when option won\'t match with given value', () => {
-    assert.deepStrictEqual(validateOption(['-n', '-c'], '-n', '-c'),
+    assert.throws(() => validateOption(['-n', '-c'], '-n', '-c'),
       { message: 'can not combine line and byte counts' });
 
   });
   it(
     'should give empty string when newOption is found and same as given option',
     () => {
-      assert.strictEqual(validateOption(['-n'], '-n', '-n'), '');
+      assert.strictEqual(validateOption(['-n'], '-n', '-n'), undefined);
     });
 });
 
-describe('getOption', () => {
-  it('should return same option when option exists', () => {
-    assert.strictEqual(getOption('-a', ['-a']), '-a');
-    assert.strictEqual(getOption('-a', ['-b', '-a']), '-a');
+describe('formatArgs', () => {
+  it('should seperated option and value', () => {
+    assert.deepStrictEqual(formatArgs(['-n1']), ['-n', '1']);
+    assert.deepStrictEqual(formatArgs(['-n', '1']), ['-n', '1']);
   });
 
-  it('should return "-n" when option does not exists ', () => {
-    assert.strictEqual(getOption('-b', ['-a']), '-n');
-    assert.strictEqual(getOption('hello', ['a', 'b']), '-n');
+  it('should set option as -n when first arg is numbered option',
+    () => {
+      assert.deepStrictEqual(formatArgs(['-1']), ['-n', '1']);
+      assert.deepStrictEqual(formatArgs(['-1', '-2']), ['-n', '1', '-2']);
+    });
+});
+
+describe('splitArgs', () => {
+  it('should seperate argument when it starts with hyphen', () => {
+    assert.deepStrictEqual(splitArgs('-n'), ['-n', '']);
+    assert.deepStrictEqual(splitArgs('-n3'), ['-n', '3']);
+    assert.deepStrictEqual(splitArgs('hello'), ['hello']);
   });
 });

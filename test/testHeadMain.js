@@ -42,6 +42,6 @@ describe('headMain', () => {
   it('should return content of all given files', () => {
     const mockReadFile = shouldReturn('a.txt', 'a\nb\nc');
     assert.strictEqual(headMain(mockReadFile, ['-n', '1', 'a.txt', 'a.txt']),
-      '===> a.txt <===\na\n\n===> a.txt <===\na\n');
+      '==> a.txt <==\na\n\n==> a.txt <==\na\n');
   });
 });

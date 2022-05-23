@@ -16,9 +16,12 @@ const head = (content, { lines, option }) => {
 };
 
 const formatResult = (results) => {
+  if (results.length < 2) {
+    return results[0].result || '';
+  }
   const formatted = results.map(({ fileName, result }) => {
     if (fileName !== undefined) {
-      return `===> ${fileName} <===\n${result}\n`;
+      return `==> ${fileName} <==\n${result}\n`;
     }
     return result;
   });
@@ -27,7 +30,6 @@ const formatResult = (results) => {
 
 const headMain = (readFile, args) => {
   const { fileNames, options } = parseArgs(args);
-
   if (!isFinite(options.lines)) {
     throw { message: `option requires an argument ${options.option}` };
   }
@@ -42,10 +44,7 @@ const headMain = (readFile, args) => {
       return { result: `${fileName} is not readable` };
     }
   });
-  if (fileNames.length > 1) {
-    return formatResult(results);
-  }
-  return results[0].result;
+  return formatResult(results);
 };
 
 exports.head = head;
