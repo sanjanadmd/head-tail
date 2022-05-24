@@ -12,13 +12,10 @@
 - **TAIL**
   - [ ] Update `README.md` with new options provided
   - [ ] Update usage in tail.js
-  - [ ] Investigate about new options
-    - [ ] Options with and without values
-    - [ ] Multiple files
-    - [ ] Multiple options
-  - [ ] Implement happy path for tail
-  - [ ] Implement tailMain for multipleFiles
+  - [ ] Seperate tailMain tests
   - [ ] Implement multiple options
+  - [ ] Implement parseArgs
+  - [ ] Link tailMain to tail.js to make it work from command line
 
 
 **MAYBE**
@@ -26,6 +23,12 @@
 
 **DONE**
 
+- [x] Investigate about new options (q,r)
+  - [x] Options with and without values
+  - [x] Multiple files
+  - [x] Multiple options
+- [x] Implement tailMain for multipleFiles
+- [x] Implement happy path for tail
 - [x] Implement -n option for tail
 - [x] Fix tail contract to take the content, options and delimiter
 - [x] Implement tailMain for one file

@@ -1,26 +1,36 @@
 const assert = require('assert');
-const { tail, tailMain, formatResult, displayResult } = require('../src/tailLib.js');
+const {
+  tail, tailMain, formatResult, displayResult } = require('../src/tailLib.js');
 
 describe('tail', () => {
   it('should return last lines from the content', () => {
     assert.strictEqual(tail('a\nb', { lines: 1, delimiter: '\n' }), 'b');
-    assert.strictEqual(tail('a\nb\nc', {
-      lines: 1, delimiter: '\n'
-    }), 'c');
-    assert.strictEqual(tail('a\nb\nc', {
-      lines: 3, delimiter: '\n'
-    }), 'a\nb\nc');
+    assert.strictEqual(tail('a\nb\nc', { lines: 1, delimiter: '\n' }), 'c');
+    assert.strictEqual(tail('a\nb\nc',
+      { lines: 3, delimiter: '\n' }), 'a\nb\nc');
   });
   it('should return lines from given number of the content', () => {
-    assert.strictEqual(tail('a\nb', {
-      lines: 1, sign: '+', delimiter: '\n'
-    }), 'a\nb');
-    assert.strictEqual(tail('a\nb\nc', {
-      lines: 1, sign: '+', delimiter: '\n'
-    }), 'a\nb\nc');
-    assert.strictEqual(tail('a\nb\nc', {
-      lines: 3, sign: '+', delimiter: '\n'
-    }), 'c');
+    assert.strictEqual(tail('a\nb',
+      { lines: 1, sign: '+', delimiter: '\n' }), 'a\nb');
+    assert.strictEqual(tail('a\nb\nc',
+      { lines: 1, sign: '+', delimiter: '\n' }), 'a\nb\nc');
+    assert.strictEqual(tail('a\nb\nc',
+      { lines: 3, sign: '+', delimiter: '\n' }), 'c');
+  });
+  it('should return last bytes from the content', () => {
+    assert.strictEqual(tail('a\nb', { lines: 1, delimiter: '' }), 'b');
+    assert.strictEqual(tail('a\nb\nc',
+      { lines: 1, delimiter: '' }), 'c');
+    assert.strictEqual(tail('a\nb\nc',
+      { lines: 3, delimiter: '' }), 'b\nc');
+  });
+  it('should return bytes from given number of the content', () => {
+    assert.strictEqual(tail('a\nb',
+      { lines: 1, sign: '+', delimiter: '' }), 'a\nb');
+    assert.strictEqual(tail('a\nb\nc',
+      { lines: 1, sign: '+', delimiter: '' }), 'a\nb\nc');
+    assert.strictEqual(tail('a\nb\nc',
+      { lines: 3, sign: '+', delimiter: '' }), 'b\nc');
   });
 });
 
@@ -126,4 +136,56 @@ describe('tailMain', () => {
       { fileNames: ['b.txt'], options: { lines: 1, option: '-n' } },
       display), 1);
   });
+
+  it('should give number of bytes required from the file', () => {
+    const mockReadFile = shouldReturn(['a.txt'], ['a\nb\nc']);
+    const display = {
+      log: mockDisplay(['c']),
+      error: mockDisplay([])
+    };
+    assert.strictEqual(tailMain(mockReadFile,
+      { fileNames: ['a.txt'], options: { lines: 1, option: '-n' } },
+      display), 0);
+  });
+
+  it('should throw an error when file is not readable', () => {
+    let mockReadFile = shouldReturn(['a.txt'], ['a\nb\nc']);
+    let display = {
+      log: mockDisplay([]),
+      error: mockDisplay(['tail: b.txt: No such file or directory'])
+    };
+    assert.strictEqual(tailMain(mockReadFile,
+      { fileNames: ['b.txt'], options: { lines: 1, option: '-c' } }
+      , display), 1);
+
+    mockReadFile = shouldReturn(['a.txt'], ['a\nb\nc']);
+    display = {
+      log: mockDisplay(['==> a.txt <==\nc\n']),
+      error: mockDisplay(['tail: b.txt: No such file or directory'])
+    };
+    assert.strictEqual(tailMain(mockReadFile,
+      { fileNames: ['a.txt', 'b.txt'], options: { lines: 1, option: '-c' } },
+      display), 1);
+  });
+
+  it('should return content of all given files', () => {
+    let mockReadFile = shouldReturn(['a.txt', 'b.txt'], ['a\nb\nc', 'hello']);
+    let display = {
+      log: mockDisplay(['==> a.txt <==\nc\n', '==> b.txt <==\nhello\n']),
+      error: mockDisplay([])
+    };
+    assert.strictEqual(tailMain(mockReadFile,
+      { fileNames: ['a.txt', 'b.txt'], options: { lines: 1, option: '-n' } },
+      display), 0);
+
+    mockReadFile = shouldReturn(['a.txt', 'a.txt'], ['a\nb\nc', 'a\nb\nc']);
+    display = {
+      log: mockDisplay(['==> a.txt <==\nc\n', '==> a.txt <==\nc\n']),
+      error: mockDisplay([])
+    };
+    assert.strictEqual(tailMain(mockReadFile,
+      { fileNames: ['a.txt', 'a.txt'], options: { lines: 1, option: '-n' } },
+      display), 0);
+  });
+
 });

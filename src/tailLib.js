@@ -2,13 +2,6 @@ const { extractLines, joinLines } = require('./stringUtils.js');
 
 const sliceFrom = (list, count) => list.slice(count);
 
-const tail = (content, { lines, sign, delimiter }) => {
-  const count = sign === '+' ? Math.abs(lines - 1) : -Math.abs(lines);
-  const allLines = extractLines(content, delimiter);
-  const filteredLines = sliceFrom(allLines, count);
-  return joinLines(filteredLines, delimiter);
-};
-
 const getDelimiter = (option) => {
   const options = { '-n': '\n', '-c': '' };
   return options[option];
@@ -16,6 +9,13 @@ const getDelimiter = (option) => {
 
 const setOption = ({ lines, sign, option }) => {
   return { lines, sign, delimiter: getDelimiter(option) };
+};
+
+const tail = (content, { lines, sign, delimiter }) => {
+  const count = sign === '+' ? Math.abs(lines - 1) : -Math.abs(lines);
+  const allLines = extractLines(content, delimiter);
+  const filteredLines = sliceFrom(allLines, count);
+  return joinLines(filteredLines, delimiter);
 };
 
 const formatResult = (results) => {
