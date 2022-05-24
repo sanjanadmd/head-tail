@@ -1,12 +1,12 @@
 **TODO**
 
-- [ ] Write a test for `tail`
 - [ ] Investigate breifly about tail
   - [ ] How it works
   - [ ] Options and with their values
   - [ ] Using multiple options
   - [ ] Valid and invalid structure or options
 - [ ] Implement happy path for tail
+- [ ] Implement tail to treat numbers with and without sign accordingly
 - [ ] Make parseArgs work for multiple numbered options
 - [ ] Refactor parseArgs
 - [ ] Remove testStringUtils.js
@@ -15,6 +15,7 @@
 
 **DONE**
 
+- [x] Write a test for `tail`
 - [x] Make a `tailLib.js`, `testTailLib.js`
 - [x] Add details about `tail` in README.md
 - [x] Use the type in result to display data in console or error stream
