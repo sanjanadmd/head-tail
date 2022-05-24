@@ -3,14 +3,24 @@ const { tail, tailMain } = require('../src/tailLib.js');
 
 describe.only('tail', () => {
   it('should return last lines from the content', () => {
-    assert.strictEqual(tail('a\nb', 1), 'b');
-    assert.strictEqual(tail('a\nb\nc', 1), 'c');
-    assert.strictEqual(tail('a\nb\nc', 3), 'a\nb\nc');
+    assert.strictEqual(tail('a\nb', { lines: 1, delimiter: '\n' }), 'b');
+    assert.strictEqual(tail('a\nb\nc', {
+      lines: 1, delimiter: '\n'
+    }), 'c');
+    assert.strictEqual(tail('a\nb\nc', {
+      lines: 3, delimiter: '\n'
+    }), 'a\nb\nc');
   });
   it('should return lines from given number of the content', () => {
-    assert.strictEqual(tail('a\nb', 1, '+'), 'a\nb');
-    assert.strictEqual(tail('a\nb\nc', 1, '+'), 'a\nb\nc');
-    assert.strictEqual(tail('a\nb\nc', 3, '+'), 'c');
+    assert.strictEqual(tail('a\nb', {
+      lines: 1, sign: '+', delimiter: '\n'
+    }), 'a\nb');
+    assert.strictEqual(tail('a\nb\nc', {
+      lines: 1, sign: '+', delimiter: '\n'
+    }), 'a\nb\nc');
+    assert.strictEqual(tail('a\nb\nc', {
+      lines: 3, sign: '+', delimiter: '\n'
+    }), 'c');
   });
 });
 
@@ -28,10 +38,12 @@ const shouldReturn = (expectedFiles, content) => {
 describe.only('tailMain', () => {
   it('should return the last line of the file if file exists', () => {
     let mockReadFile = shouldReturn(['a.txt'], ['a\nb\nc']);
-    assert.strictEqual(tailMain(mockReadFile, 'a.txt', { lines: 1 }), 'c');
+    assert.strictEqual(tailMain(mockReadFile, 'a.txt',
+      { lines: 1, delimiter: '\n' }), 'c');
 
     mockReadFile = shouldReturn(['a.txt'], ['a\nb\nc']);
-    assert.throws(() => tailMain(mockReadFile, 'b.txt', { lines: 1 })
-      , { message: 'tail: b.txt: No such file or directory' });
+    assert.throws(() => tailMain(mockReadFile, 'b.txt',
+      { lines: 1, delimiter: '\n' }),
+      { message: 'tail: b.txt: No such file or directory' });
   });
 });

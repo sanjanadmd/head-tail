@@ -1,6 +1,7 @@
 **TODO**
 - **HEAD**
   - [ ] Select delimiter from headMain instead of head
+  - [ ] Modify mockDisplay function testing
   - [ ] Extract fileReader and headMultipleFiles
 
 - **PARSING**
@@ -10,7 +11,6 @@
 
 - **TAIL**
   - [ ] Implement happy path for tail
-  - [ ] Fix tail contract to take the content, options and delimiter
   - [ ] Implement tailMain for multipleFiles
   - [ ] Implement -n option for tail
   - [ ] Implement multiple options
@@ -20,6 +20,7 @@
 
 **DONE**
 
+  - [x] Fix tail contract to take the content, options and delimiter
 - [x] Implement tailMain for one file
 - [x] Implement tail to treat numbers with and without sign accordingly
 - [x] Investigate breifly about tail
