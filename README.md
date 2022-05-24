@@ -38,6 +38,12 @@
     display last bytes of specified files
     The Location is number lines
   
+  tail -q file -
+    Suppresses printing of headers when multiple files are being examined
+
+  tail -r file -
+    The -r option causes the input to be displayed in reverse order, by line
+  
   tail --help
     display tail usage 
 ``` 

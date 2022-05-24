@@ -11,6 +11,7 @@
 
 - **TAIL**
   - [ ] Update `README.md` with new options provided
+  - [ ] Update usage in tail.js
   - [ ] Investigate about new options
     - [ ] Options with and without values
     - [ ] Multiple files

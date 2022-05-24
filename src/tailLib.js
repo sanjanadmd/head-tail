@@ -14,23 +14,50 @@ const getDelimiter = (option) => {
   return options[option];
 };
 
-const setOption = (args) => {
-  const options = {};
-  options.lines = args.lines;
-  options.sign = args.sign;
-  options.delimiter = getDelimiter(args.option);
-  return options;
+const setOption = ({ lines, sign, option }) => {
+  return { lines, sign, delimiter: getDelimiter(option) };
 };
 
-const tailMain = (readFile, fileName, args) => {
-  const options = setOption(args);
-  try {
-    const content = readFile(fileName, 'utf8');
-    return tail(content, options);
-  } catch (error) {
-    throw { message: `tail: ${fileName}: No such file or directory` };
+const formatResult = (results) => {
+  if (results.length < 2) {
+    return [{ result: results[0].result, type: results[0].type }];
   }
+  return results.map(({ fileName, result, type }) => {
+    if (type === 'log') {
+      return { result: `==> ${fileName} <==\n${result}\n`, type };
+    }
+    return { result, type };
+  });
+
+};
+
+const displayResult = (display, results) => {
+  results.forEach(fileResult => {
+    display[fileResult.type](fileResult.result);
+  });
+};
+
+const tailMain = (readFile, parsedArgs, display) => {
+  const options = setOption(parsedArgs.options);
+  const fileNames = parsedArgs.fileNames;
+  let exitCode = 0;
+  const results = fileNames.map((fileName) => {
+    try {
+      const content = readFile(fileName, 'utf8');
+      return { fileName, result: tail(content, options), type: 'log' };
+    } catch (error) {
+      exitCode = 1;
+      return {
+        result: `tail: ${fileName}: No such file or directory`,
+        type: 'error'
+      };
+    }
+  });
+  displayResult(display, formatResult(results));
+  return exitCode;
 };
 
 exports.tail = tail;
 exports.tailMain = tailMain;
+exports.formatResult = formatResult;
+exports.displayResult = displayResult;
