@@ -10,17 +10,23 @@
   - [ ] Modify parseArgs to take validation functions
 
 - **TAIL**
+  - [ ] Update `README.md` with new options provided
+  - [ ] Investigate about new options
+    - [ ] Options with and without values
+    - [ ] Multiple files
+    - [ ] Multiple options
   - [ ] Implement happy path for tail
   - [ ] Implement tailMain for multipleFiles
-  - [ ] Implement -n option for tail
   - [ ] Implement multiple options
+
 
 **MAYBE**
 - [ ] Remove testStringUtils.js
 
 **DONE**
 
-  - [x] Fix tail contract to take the content, options and delimiter
+- [x] Implement -n option for tail
+- [x] Fix tail contract to take the content, options and delimiter
 - [x] Implement tailMain for one file
 - [x] Implement tail to treat numbers with and without sign accordingly
 - [x] Investigate breifly about tail

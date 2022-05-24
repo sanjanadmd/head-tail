@@ -9,7 +9,21 @@ const tail = (content, { lines, sign, delimiter }) => {
   return joinLines(filteredLines, delimiter);
 };
 
-const tailMain = (readFile, fileName, options) => {
+const getDelimiter = (option) => {
+  const options = { '-n': '\n', '-c': '' };
+  return options[option];
+};
+
+const setOption = (args) => {
+  const options = {};
+  options.lines = args.lines;
+  options.sign = args.sign;
+  options.delimiter = getDelimiter(args.option);
+  return options;
+};
+
+const tailMain = (readFile, fileName, args) => {
+  const options = setOption(args);
   try {
     const content = readFile(fileName, 'utf8');
     return tail(content, options);
