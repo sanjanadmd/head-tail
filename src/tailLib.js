@@ -9,4 +9,14 @@ const tail = (content, lines, sign) => {
   return joinLines(filteredLines, '\n');
 };
 
+const tailMain = (readFile, fileName, options) => {
+  try {
+    const content = readFile(fileName, 'utf8');
+    return tail(content, options.lines, options.sign);
+  } catch (error) {
+    throw { message: `tail: ${fileName}: No such file or directory` };
+  }
+};
+
 exports.tail = tail;
+exports.tailMain = tailMain;

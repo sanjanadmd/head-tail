@@ -9,15 +9,18 @@
   - [ ] Modify parseArgs to take validation functions
 
 - **TAIL**
-  - [ ] 
   - [ ] Implement happy path for tail
+  - [ ] Fix tail contract to take the content, options and delimiter
+  - [ ] Implement tailMain for multipleFiles
   - [ ] Implement -n option for tail
+  - [ ] Implement multiple options
 
 **MAYBE**
 - [ ] Remove testStringUtils.js
 
 **DONE**
 
+- [x] Implement tailMain for one file
 - [x] Implement tail to treat numbers with and without sign accordingly
 - [x] Investigate breifly about tail
   - [x] How it works
