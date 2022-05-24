@@ -20,7 +20,7 @@ const formatResult = (results) => {
     return [{ result: results[0].result, type: results[0].type }];
   }
   return results.map(({ fileName, result, type }) => {
-    if (fileName !== undefined) {
+    if (type === 'log') {
       return { result: `==> ${fileName} <==\n${result}\n`, type };
     }
     return { result, type };
@@ -36,11 +36,13 @@ const displayResult = (display, results) => {
 
 const headMain = (readFile, args, display) => {
   const { fileNames, options } = parseArgs(args);
+  let exitCode = 0;
   const results = fileNames.map((fileName) => {
     try {
       const content = readFile(fileName, 'utf8');
       return { fileName, result: head(content, options), type: 'log' };
     } catch (error) {
+      exitCode = 1;
       return {
         result: `head: ${fileName}: No such file or directory`,
         type: 'error'
@@ -48,6 +50,7 @@ const headMain = (readFile, args, display) => {
     }
   });
   displayResult(display, formatResult(results));
+  return exitCode;
 };
 
 exports.head = head;

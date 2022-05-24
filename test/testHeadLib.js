@@ -62,7 +62,7 @@ describe('formatResult', () => {
       { fileName: 'b.txt', result: 'b', type: 'error' }
     ]), [
       { result: '==> a.txt <==\na\n', type: 'log' },
-      { result: '==> b.txt <==\nb\n', type: 'error' }
+      { result: 'b', type: 'error' }
     ]);
   });
 });

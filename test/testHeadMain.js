@@ -28,7 +28,7 @@ describe('headMain', () => {
       error: mockDisplay([])
     };
     assert.strictEqual(headMain(mockReadFile,
-      ['-n', '2', 'a.txt'], display), undefined);
+      ['-n', '2', 'a.txt'], display), 0);
 
     display = {
       log: mockDisplay(['a\nb\nc']),
@@ -36,7 +36,7 @@ describe('headMain', () => {
     };
     mockReadFile = shouldReturn(['a.txt'], ['a\nb\nc']);
     assert.strictEqual(headMain(mockReadFile,
-      ['-n', '3', 'a.txt'], display), undefined);
+      ['-n', '3', 'a.txt'], display), 0);
 
     mockReadFile = shouldReturn(['a.txt'], ['as\nan\nit\ndo']);
     display = {
@@ -45,7 +45,7 @@ describe('headMain', () => {
     };
 
     assert.strictEqual(headMain(mockReadFile,
-      ['-n', '3', 'a.txt'], display), undefined);
+      ['-n', '3', 'a.txt'], display), 0);
   });
 
   it('should give number of bytes required from the file', () => {
@@ -55,7 +55,7 @@ describe('headMain', () => {
       error: mockDisplay([])
     };
     assert.strictEqual(headMain(mockReadFile,
-      ['-c', '3', 'a.txt'], display), undefined);
+      ['-c', '3', 'a.txt'], display), 0);
   });
 
   it('should throw an error when file is not readable', () => {
@@ -65,7 +65,7 @@ describe('headMain', () => {
       error: mockDisplay(['head: b.txt: No such file or directory'])
     };
     assert.strictEqual(headMain(
-      mockReadFile, ['-c', '1', 'b.txt'], display), undefined);
+      mockReadFile, ['-c', '1', 'b.txt'], display), 1);
 
     mockReadFile = shouldReturn(['a.txt'], ['a\nb\nc']);
     display = {
@@ -73,24 +73,24 @@ describe('headMain', () => {
       error: mockDisplay(['head: b.txt: No such file or directory'])
     };
     assert.strictEqual(headMain(
-      mockReadFile, ['-c', '1', 'a.txt', 'b.txt'], display), undefined);
+      mockReadFile, ['-c', '1', 'a.txt', 'b.txt'], display), 1);
   });
 
   it('should return content of all given files', () => {
     let mockReadFile = shouldReturn(['a.txt', 'b.txt'], ['a\nb\nc', 'hello']);
     let display = {
       log: mockDisplay(['==> a.txt <==\na\n', '==> b.txt <==\nhello\n']),
-      error: mockDisplay([''])
+      error: mockDisplay([])
     };
     assert.strictEqual(headMain(mockReadFile,
-      ['-n', '1', 'a.txt', 'b.txt'], display), undefined);
+      ['-n', '1', 'a.txt', 'b.txt'], display), 0);
 
     mockReadFile = shouldReturn(['a.txt', 'a.txt'], ['a\nb\nc', 'a\nb\nc']);
     display = {
       log: mockDisplay(['==> a.txt <==\na\n', '==> a.txt <==\na\n']),
-      error: mockDisplay([''])
+      error: mockDisplay([])
     };
     assert.strictEqual(headMain(mockReadFile,
-      ['-n', '1', 'a.txt', 'a.txt'], display), undefined);
+      ['-n', '1', 'a.txt', 'a.txt'], display), 0);
   });
 });
