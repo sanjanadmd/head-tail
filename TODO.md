@@ -1,20 +1,29 @@
 **TODO**
+- **HEAD**
+  - [ ] Select delimiter from headMain instead of head
+  - [ ] Extract fileReader and headMultipleFiles
 
-- [ ] Investigate breifly about tail
-  - [ ] How it works
-  - [ ] Options and with their values
-  - [ ] Using multiple options
-  - [ ] Valid and invalid structure or options
-- [ ] Implement happy path for tail
-- [ ] Implement tail to treat numbers with and without sign accordingly
-- [ ] Make parseArgs work for multiple numbered options
-- [ ] Refactor parseArgs
-- [ ] Remove testStringUtils.js
+- **PARSING**
+  - [ ] Refactor parseArgs
+  - [ ] Make parseArgs work for multiple numbered options
+  - [ ] Modify parseArgs to take validation functions
+
+- **TAIL**
+  - [ ] 
+  - [ ] Implement happy path for tail
+  - [ ] Implement -n option for tail
 
 **MAYBE**
+- [ ] Remove testStringUtils.js
 
 **DONE**
 
+- [x] Implement tail to treat numbers with and without sign accordingly
+- [x] Investigate breifly about tail
+  - [x] How it works
+  - [x] Options and with their values
+  - [x] Using multiple options
+  - [x] Valid and invalid structure or options
 - [x] Write a test for `tail`
 - [x] Make a `tailLib.js`, `testTailLib.js`
 - [x] Add details about `tail` in README.md
