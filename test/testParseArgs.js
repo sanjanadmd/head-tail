@@ -122,7 +122,7 @@ describe('validateLines', () => {
     () => {
       assert.throws(() => validateLines('-4', { option: '-n' }),
         {
-          name: 'illegal line count -- -4'
+          name: 'illegal lines count -- -4'
         });
     });
 });

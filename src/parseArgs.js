@@ -28,8 +28,9 @@ const validateLines = (argument, options) => {
       name: `option requires an argument -- ${options.option.slice(1)}`,
       message: 'usage: head [-n lines | -c bytes] [file ...]'
     };
-  } else if (+argument < 0) {
-    throw { name: `illegal line count -- ${argument}` };
+  } else if (+argument <= 0) {
+    const keys = { '-n': 'lines', '-c': 'bytes' };
+    throw { name: `illegal ${keys[options.option]} count -- ${argument}` };
   }
 };
 

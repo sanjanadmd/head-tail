@@ -1,7 +1,5 @@
 **TODO**
 
-- [ ] Add details about `tail` in README.md
-- [ ] Make a `tailLib.js`, `testTailLib.js`
 - [ ] Write a test for `tail`
 - [ ] Investigate breifly about tail
   - [ ] How it works
@@ -17,6 +15,8 @@
 
 **DONE**
 
+- [x] Make a `tailLib.js`, `testTailLib.js`
+- [x] Add details about `tail` in README.md
 - [x] Use the type in result to display data in console or error stream
 - [x] Dealing arguments when option and number are combined 
 - [x] Adding header when we have multiple files
