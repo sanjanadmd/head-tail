@@ -41,7 +41,10 @@ const headMain = (readFile, args, display) => {
       const content = readFile(fileName, 'utf8');
       return { fileName, result: head(content, options), type: 'log' };
     } catch (error) {
-      return { result: `${fileName} is not readable`, type: 'error' };
+      return {
+        result: `head: ${fileName}: No such file or directory`,
+        type: 'error'
+      };
     }
   });
   displayResult(display, formatResult(results));

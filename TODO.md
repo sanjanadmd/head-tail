@@ -1,6 +1,14 @@
 **TODO**
 
 - [ ] Add details about `tail` in README.md
+- [ ] Make a `tailLib.js`, `testTailLib.js`
+- [ ] Write a test for `tail`
+- [ ] Investigate breifly about tail
+  - [ ] How it works
+  - [ ] Options and with their values
+  - [ ] Using multiple options
+  - [ ] Valid and invalid structure or options
+- [ ] Implement happy path for tail
 - [ ] Make parseArgs work for multiple numbered options
 - [ ] Refactor parseArgs
 - [ ] Remove testStringUtils.js

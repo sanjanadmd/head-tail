@@ -59,13 +59,21 @@ describe('headMain', () => {
   });
 
   it('should throw an error when file is not readable', () => {
-    const mockReadFile = shouldReturn(['a.txt'], ['a\nb\nc']);
-    const display = {
+    let mockReadFile = shouldReturn(['a.txt'], ['a\nb\nc']);
+    let display = {
       log: mockDisplay([]),
-      error: mockDisplay(['b.txt is not readable'])
+      error: mockDisplay(['head: b.txt: No such file or directory'])
     };
     assert.strictEqual(headMain(
       mockReadFile, ['-c', '1', 'b.txt'], display), undefined);
+
+    mockReadFile = shouldReturn(['a.txt'], ['a\nb\nc']);
+    display = {
+      log: mockDisplay(['==> a.txt <==\na\n']),
+      error: mockDisplay(['head: b.txt: No such file or directory'])
+    };
+    assert.strictEqual(headMain(
+      mockReadFile, ['-c', '1', 'a.txt', 'b.txt'], display), undefined);
   });
 
   it('should return content of all given files', () => {
