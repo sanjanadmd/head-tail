@@ -12,7 +12,6 @@
 - **TAIL**
   - [ ] Update `README.md` with new options provided
   - [ ] Update usage in tail.js
-  - [ ] Seperate tailMain tests
   - [ ] Implement multiple options
   - [ ] Implement parseArgs
   - [ ] Link tailMain to tail.js to make it work from command line
@@ -23,6 +22,7 @@
 
 **DONE**
 
+- [x] Seperate tailMain tests
 - [x] Investigate about new options (q,r)
   - [x] Options with and without values
   - [x] Multiple files
