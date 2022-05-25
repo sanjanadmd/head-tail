@@ -7,12 +7,13 @@ const getDelimiter = (option) => {
   return options[option];
 };
 
-const setOption = ({ lines, sign, option }) => {
-  return { lines, sign, delimiter: getDelimiter(option) };
+const getOption = ({ lines, option }) => {
+  const count = lines.startsWith('+') ?
+    Math.abs(+lines - 1) : -Math.abs(+lines);
+  return { count, delimiter: getDelimiter(option) };
 };
 
-const tail = (content, { lines, sign, delimiter }) => {
-  const count = sign === '+' ? Math.abs(lines - 1) : -Math.abs(lines);
+const tail = (content, { count, delimiter }) => {
   const allLines = extractLines(content, delimiter);
   const filteredLines = sliceFrom(allLines, count);
   return joinLines(filteredLines, delimiter);
@@ -38,7 +39,7 @@ const displayResult = (display, results) => {
 };
 
 const tailMain = (readFile, parsedArgs, display) => {
-  const options = setOption(parsedArgs.options);
+  const options = getOption(parsedArgs.options);
   const fileNames = parsedArgs.fileNames;
   let exitCode = 0;
   const results = fileNames.map((fileName) => {

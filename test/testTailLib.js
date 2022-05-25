@@ -74,32 +74,32 @@ describe('displayResult', () => {
 
 describe('tail', () => {
   it('should return last lines from the content', () => {
-    assert.strictEqual(tail('a\nb', { lines: 1, delimiter: '\n' }), 'b');
-    assert.strictEqual(tail('a\nb\nc', { lines: 1, delimiter: '\n' }), 'c');
+    assert.strictEqual(tail('a\nb', { count: -1, delimiter: '\n' }), 'b');
+    assert.strictEqual(tail('a\nb\nc', { count: -1, delimiter: '\n' }), 'c');
     assert.strictEqual(tail('a\nb\nc',
-      { lines: 3, delimiter: '\n' }), 'a\nb\nc');
+      { count: -3, delimiter: '\n' }), 'a\nb\nc');
   });
   it('should return lines from given number of the content', () => {
     assert.strictEqual(tail('a\nb',
-      { lines: 1, sign: '+', delimiter: '\n' }), 'a\nb');
+      { count: 0, delimiter: '\n' }), 'a\nb');
     assert.strictEqual(tail('a\nb\nc',
-      { lines: 1, sign: '+', delimiter: '\n' }), 'a\nb\nc');
+      { count: 0, delimiter: '\n' }), 'a\nb\nc');
     assert.strictEqual(tail('a\nb\nc',
-      { lines: 3, sign: '+', delimiter: '\n' }), 'c');
+      { count: 2, delimiter: '\n' }), 'c');
   });
   it('should return last bytes from the content', () => {
-    assert.strictEqual(tail('a\nb', { lines: 1, delimiter: '' }), 'b');
+    assert.strictEqual(tail('a\nb', { count: -1, delimiter: '' }), 'b');
     assert.strictEqual(tail('a\nb\nc',
-      { lines: 1, delimiter: '' }), 'c');
+      { count: -1, delimiter: '' }), 'c');
     assert.strictEqual(tail('a\nb\nc',
-      { lines: 3, delimiter: '' }), 'b\nc');
+      { count: -3, delimiter: '' }), 'b\nc');
   });
   it('should return bytes from given number of the content', () => {
     assert.strictEqual(tail('a\nb',
-      { lines: 1, sign: '+', delimiter: '' }), 'a\nb');
+      { count: 0, delimiter: '' }), 'a\nb');
     assert.strictEqual(tail('a\nb\nc',
-      { lines: 1, sign: '+', delimiter: '' }), 'a\nb\nc');
+      { count: 0, delimiter: '' }), 'a\nb\nc');
     assert.strictEqual(tail('a\nb\nc',
-      { lines: 3, sign: '+', delimiter: '' }), 'b\nc');
+      { count: 2, delimiter: '' }), 'b\nc');
   });
 });

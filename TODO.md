@@ -15,16 +15,16 @@
   - [ ] Implement multiple options
   - [ ] Implement parseArgs
   - [ ] Link tailMain to tail.js to make it work from command line
-  - [ ] Take the decision about the line count from tailMain instead of tail
   - [ ] Fix the exitCode with the numberOf errors insteadOf setting it to one
 
 **MAYBE**
 - [ ] Remove testStringUtils.js
-- [ ] Take the decision about the line count setOption
-  - [ ] Modify setOption function name
 
 **DONE**
 
+- [x] Modify setOption function name
+- [x] Take the decision about the line count setOption
+- [x] Take the decision about the line count from tailMain instead of tail
 - [x] Update usage in tail.js
 - [x] Update `README.md` with new options provided
 - [x] Seperate tailMain tests
