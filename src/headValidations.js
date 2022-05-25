@@ -10,12 +10,12 @@ const validateOption = (defaultOptions, option, argument) => {
 };
 
 const validateLines = (argument, options) => {
-  if (!isFinite(+argument)) {
+  if (argument === undefined) {
     throw {
       name: `option requires an argument -- ${options.option.slice(1)}`,
       message: 'usage: head [-n lines | -c bytes] [file ...]'
     };
-  } else if (+argument <= 0) {
+  } else if (+argument <= 0 || !isFinite(argument)) {
     const keys = { '-n': 'lines', '-c': 'bytes' };
     throw { name: `illegal ${keys[options.option]} count -- ${argument}` };
   }
