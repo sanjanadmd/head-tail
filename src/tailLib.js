@@ -1,5 +1,6 @@
 const { extractLines, joinLines } = require('./stringUtils.js');
-const { parseArgs } = require('./parseArgsTail.js');
+const { parseArgs } = require('./parseArgs.js');
+const { tailValidator } = require('./tailValidations.js');
 
 const sliceFrom = (list, count) => list.slice(count);
 
@@ -40,7 +41,7 @@ const displayResult = (display, results) => {
 };
 
 const tailMain = (readFile, args, display) => {
-  const { fileNames, options } = parseArgs(args);
+  const { fileNames, options } = parseArgs(args, tailValidator);
   const newOptions = getOption(options);
   let exitCode = 0;
   const results = fileNames.map((fileName) => {

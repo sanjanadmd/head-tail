@@ -8,7 +8,6 @@
 - **PARSING**
   - [ ] Refactor parseArgs
   - [ ] Make parseArgs work for multiple numbered options
-  - [ ] Modify parseArgs to take validation functions
 
 - **TAIL**
   - [ ] Seperate formatResult and displayResult
@@ -21,6 +20,7 @@
 
 **DONE**
 
+- [x] Modify parseArgs to take validation functions
 - [x] Link tailMain to tail.js to make it work from command line
 - [x] Implement parseArgs
 - [x] Modify setOption function name

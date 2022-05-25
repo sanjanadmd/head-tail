@@ -1,5 +1,6 @@
 const { extractLines, joinLines } = require('./stringUtils.js');
 const { parseArgs } = require('./parseArgs.js');
+const { headValidator } = require('./validations.js');
 
 const sliceUpto = (lines, count) => lines.slice(0, count);
 
@@ -35,7 +36,7 @@ const displayResult = (display, results) => {
 };
 
 const headMain = (readFile, args, display) => {
-  const { fileNames, options } = parseArgs(args);
+  const { fileNames, options } = parseArgs(args, headValidator);
   let exitCode = 0;
   const results = fileNames.map((fileName) => {
     try {
