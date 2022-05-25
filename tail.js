@@ -7,7 +7,7 @@ const main = () => {
   try {
     exit(tailMain(fs.readFileSync, process.argv.slice(2), console));
   } catch (error) {
-    console.error(`${error.name}`);
+    console.error(`tail: ${error.name}`);
     exit(1);
   }
 };

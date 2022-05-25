@@ -10,7 +10,6 @@
 
 - **TAIL**
   - [ ] Implement multiple options
-  - [ ] Fix the validation errors
   - [ ] Fix the exitCode with the numberOf errors insteadOf setting it to one
 
 **MAYBE**
@@ -18,6 +17,7 @@
 
 **DONE**
 
+- [x] Fix the validation errors
 - [x] Seperate formatResult and displayResult
 - [x] Modify parseArgs to take validation functions
 - [x] Link tailMain to tail.js to make it work from command line

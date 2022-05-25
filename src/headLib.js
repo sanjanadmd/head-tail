@@ -1,6 +1,6 @@
 const { extractLines, joinLines } = require('./stringUtils.js');
 const { parseArgs } = require('./parseArgs.js');
-const { headValidator } = require('./validations.js');
+const { headValidator } = require('./headValidations.js');
 const { displayResult, formatResult } = require('./displayFormat.js');
 
 const sliceUpto = (lines, count) => lines.slice(0, count);
