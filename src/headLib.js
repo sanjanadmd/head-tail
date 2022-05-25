@@ -1,6 +1,7 @@
 const { extractLines, joinLines } = require('./stringUtils.js');
 const { parseArgs } = require('./parseArgs.js');
 const { headValidator } = require('./validations.js');
+const { displayResult, formatResult } = require('./displayFormat.js');
 
 const sliceUpto = (lines, count) => lines.slice(0, count);
 
@@ -14,25 +15,6 @@ const head = (content, { lines, option }) => {
   const allLines = extractLines(content, delimiter);
   const filteredLines = sliceUpto(allLines, lines);
   return joinLines(filteredLines, delimiter);
-};
-
-const formatResult = (results) => {
-  if (results.length < 2) {
-    return results;
-  }
-  return results.map(({ fileName, result, type }) => {
-    if (type === 'log') {
-      return { result: `==> ${fileName} <==\n${result}\n`, type };
-    }
-    return { result, type };
-  });
-
-};
-
-const displayResult = (display, results) => {
-  results.forEach(fileResult => {
-    display[fileResult.type](fileResult.result);
-  });
 };
 
 const headMain = (readFile, args, display) => {
@@ -56,6 +38,4 @@ const headMain = (readFile, args, display) => {
 
 exports.head = head;
 exports.headMain = headMain;
-exports.formatResult = formatResult;
 exports.sliceUpto = sliceUpto;
-exports.displayResult = displayResult;

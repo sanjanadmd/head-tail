@@ -3,14 +3,12 @@
   - [ ] Select delimiter from headMain instead of head
   - [ ] Modify mockDisplay function testing
   - [ ] Extract fileReader and headMultipleFiles
-  - [ ] Seperate formatResult and displayResult
 
 - **PARSING**
   - [ ] Refactor parseArgs
   - [ ] Make parseArgs work for multiple numbered options
 
 - **TAIL**
-  - [ ] Seperate formatResult and displayResult
   - [ ] Implement multiple options
   - [ ] Fix the validation errors
   - [ ] Fix the exitCode with the numberOf errors insteadOf setting it to one
@@ -20,6 +18,7 @@
 
 **DONE**
 
+- [x] Seperate formatResult and displayResult
 - [x] Modify parseArgs to take validation functions
 - [x] Link tailMain to tail.js to make it work from command line
 - [x] Implement parseArgs

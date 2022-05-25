@@ -1,6 +1,7 @@
 const { extractLines, joinLines } = require('./stringUtils.js');
 const { parseArgs } = require('./parseArgs.js');
 const { tailValidator } = require('./tailValidations.js');
+const { displayResult, formatResult } = require('./displayFormat.js');
 
 const sliceFrom = (list, count) => list.slice(count);
 
@@ -19,25 +20,6 @@ const tail = (content, { count, delimiter }) => {
   const allLines = extractLines(content, delimiter);
   const filteredLines = sliceFrom(allLines, count);
   return joinLines(filteredLines, delimiter);
-};
-
-const formatResult = (results) => {
-  if (results.length < 2) {
-    return results;
-  }
-  return results.map(({ fileName, result, type }) => {
-    if (type === 'log') {
-      return { result: `==> ${fileName} <==\n${result}\n`, type };
-    }
-    return { result, type };
-  });
-
-};
-
-const displayResult = (display, results) => {
-  results.forEach(fileResult => {
-    display[fileResult.type](fileResult.result);
-  });
 };
 
 const tailMain = (readFile, args, display) => {
@@ -62,5 +44,4 @@ const tailMain = (readFile, args, display) => {
 
 exports.tail = tail;
 exports.tailMain = tailMain;
-exports.formatResult = formatResult;
-exports.displayResult = displayResult;
+exports.sliceFrom = sliceFrom;
