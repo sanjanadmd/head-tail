@@ -3,6 +3,7 @@
   - [ ] Select delimiter from headMain instead of head
   - [ ] Modify mockDisplay function testing
   - [ ] Extract fileReader and headMultipleFiles
+  - [ ] Seperate formatResult and displayResult
 
 - **PARSING**
   - [ ] Refactor parseArgs
@@ -10,18 +11,22 @@
   - [ ] Modify parseArgs to take validation functions
 
 - **TAIL**
-  - [ ] Update `README.md` with new options provided
-  - [ ] Update usage in tail.js
+  - [ ] Seperate formatResult and displayResult
   - [ ] Implement multiple options
   - [ ] Implement parseArgs
   - [ ] Link tailMain to tail.js to make it work from command line
-
+  - [ ] Take the decision about the line count from tailMain instead of tail
+  - [ ] Fix the exitCode with the numberOf errors insteadOf setting it to one
 
 **MAYBE**
 - [ ] Remove testStringUtils.js
+- [ ] Take the decision about the line count setOption
+  - [ ] Modify setOption function name
 
 **DONE**
 
+- [x] Update usage in tail.js
+- [x] Update `README.md` with new options provided
 - [x] Seperate tailMain tests
 - [x] Investigate about new options (q,r)
   - [x] Options with and without values

@@ -54,7 +54,7 @@ describe('formatResult', () => {
   it('should return unformatted result when there is only one file', () => {
     assert.deepStrictEqual(formatResult([
       { fileName: 'a.txt', result: 'n', type: 'log' }
-    ]), [{ result: 'n', type: 'log' }]);
+    ]), [{ fileName: 'a.txt', result: 'n', type: 'log' }]);
   });
   it('should return unformatted result when there is only one file', () => {
     assert.deepStrictEqual(formatResult([

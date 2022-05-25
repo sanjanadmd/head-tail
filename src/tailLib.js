@@ -20,7 +20,7 @@ const tail = (content, { lines, sign, delimiter }) => {
 
 const formatResult = (results) => {
   if (results.length < 2) {
-    return [{ result: results[0].result, type: results[0].type }];
+    return results;
   }
   return results.map(({ fileName, result, type }) => {
     if (type === 'log') {
