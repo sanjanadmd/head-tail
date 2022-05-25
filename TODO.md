@@ -13,8 +13,7 @@
 - **TAIL**
   - [ ] Seperate formatResult and displayResult
   - [ ] Implement multiple options
-  - [ ] Implement parseArgs
-  - [ ] Link tailMain to tail.js to make it work from command line
+  - [ ] Fix the validation errors
   - [ ] Fix the exitCode with the numberOf errors insteadOf setting it to one
 
 **MAYBE**
@@ -22,6 +21,8 @@
 
 **DONE**
 
+- [x] Link tailMain to tail.js to make it work from command line
+- [x] Implement parseArgs
 - [x] Modify setOption function name
 - [x] Take the decision about the line count setOption
 - [x] Take the decision about the line count from tailMain instead of tail

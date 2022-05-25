@@ -27,8 +27,7 @@ describe('tailMain', () => {
       log: mockDisplay(['c']),
       error: mockDisplay([])
     };
-    assert.strictEqual(tailMain(mockReadFile,
-      { fileNames: ['a.txt'], options: { lines: '1', option: '-n' } }
+    assert.strictEqual(tailMain(mockReadFile, ['-n1', 'a.txt']
       , display), 0);
 
     mockReadFile = shouldReturn(['a.txt'], ['a\nb\nc']);
@@ -36,9 +35,8 @@ describe('tailMain', () => {
       log: mockDisplay([]),
       error: mockDisplay(['tail: b.txt: No such file or directory'])
     };
-    assert.deepStrictEqual(tailMain(mockReadFile,
-      { fileNames: ['b.txt'], options: { lines: '1', option: '-n' } },
-      display), 1);
+    assert.deepStrictEqual(tailMain(mockReadFile, ['-n', '1', 'b.txt']
+      , display), 1);
   });
 
   it('should give number of bytes required from the file', () => {
@@ -47,8 +45,7 @@ describe('tailMain', () => {
       log: mockDisplay(['c']),
       error: mockDisplay([])
     };
-    assert.strictEqual(tailMain(mockReadFile,
-      { fileNames: ['a.txt'], options: { lines: '1', option: '-n' } },
+    assert.strictEqual(tailMain(mockReadFile, ['-c', '1', 'a.txt'],
       display), 0);
   });
 
@@ -58,8 +55,7 @@ describe('tailMain', () => {
       log: mockDisplay([]),
       error: mockDisplay(['tail: b.txt: No such file or directory'])
     };
-    assert.strictEqual(tailMain(mockReadFile,
-      { fileNames: ['b.txt'], options: { lines: '1', option: '-c' } }
+    assert.strictEqual(tailMain(mockReadFile, ['-c1', 'b.txt']
       , display), 1);
 
     mockReadFile = shouldReturn(['a.txt'], ['a\nb\nc']);
@@ -68,8 +64,7 @@ describe('tailMain', () => {
       error: mockDisplay(['tail: b.txt: No such file or directory'])
     };
     assert.strictEqual(tailMain(mockReadFile,
-      { fileNames: ['a.txt', 'b.txt'], options: { lines: '1', option: '-c' } },
-      display), 1);
+      ['-c1', 'a.txt', 'b.txt'], display), 1);
   });
 
   it('should return content of all given files', () => {
@@ -79,8 +74,7 @@ describe('tailMain', () => {
       error: mockDisplay([])
     };
     assert.strictEqual(tailMain(mockReadFile,
-      { fileNames: ['a.txt', 'b.txt'], options: { lines: '1', option: '-n' } },
-      display), 0);
+      ['-n1', 'a.txt', 'b.txt'], display), 0);
 
     mockReadFile = shouldReturn(['a.txt', 'a.txt'], ['a\nb\nc', 'a\nb\nc']);
     display = {
@@ -88,8 +82,7 @@ describe('tailMain', () => {
       error: mockDisplay([])
     };
     assert.strictEqual(tailMain(mockReadFile,
-      { fileNames: ['a.txt', 'a.txt'], options: { lines: '1', option: '-n' } },
-      display), 0);
+      ['-n1', 'a.txt', 'a.txt'], display), 0);
   });
 
 });

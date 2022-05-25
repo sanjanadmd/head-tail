@@ -1,4 +1,5 @@
 const { extractLines, joinLines } = require('./stringUtils.js');
+const { parseArgs } = require('./parseArgsTail.js');
 
 const sliceFrom = (list, count) => list.slice(count);
 
@@ -38,14 +39,14 @@ const displayResult = (display, results) => {
   });
 };
 
-const tailMain = (readFile, parsedArgs, display) => {
-  const options = getOption(parsedArgs.options);
-  const fileNames = parsedArgs.fileNames;
+const tailMain = (readFile, args, display) => {
+  const { fileNames, options } = parseArgs(args);
+  const newOptions = getOption(options);
   let exitCode = 0;
   const results = fileNames.map((fileName) => {
     try {
       const content = readFile(fileName, 'utf8');
-      return { fileName, result: tail(content, options), type: 'log' };
+      return { fileName, result: tail(content, newOptions), type: 'log' };
     } catch (error) {
       exitCode = 1;
       return {
