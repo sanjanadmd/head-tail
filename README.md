@@ -19,6 +19,8 @@
     display head usage
 ```
 
+---
+
 ## **TAIL**
 
 ### Synopsis
@@ -48,8 +50,8 @@
     display tail usage 
 ``` 
 ### NOTES
-`Numbers having a leading plus ('+') sign`
-- Relative to the beginning of the input
+- `Numbers having a leading plus ('+') sign`
+  : Relative to the beginning of the input
 
-`Numbers having a leading minus ('-') sign or no explicit sign`
-- Relative to the end of the input
+- `Numbers having a leading minus ('-') sign or no explicit sign`
+  : Relative to the end of the input

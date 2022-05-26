@@ -7,7 +7,7 @@ describe('formatResult', () => {
       { fileName: 'a.txt', result: 'n', type: 'log' }
     ]), [{ fileName: 'a.txt', result: 'n', type: 'log' }]);
   });
-  it('should return unformatted result when there is only one file', () => {
+  it('should return formatted result when there are multiple files', () => {
     assert.deepStrictEqual(formatResult([
       { fileName: 'a.txt', result: 'a', type: 'log' },
       { fileName: 'b.txt', result: 'b', type: 'error' }
