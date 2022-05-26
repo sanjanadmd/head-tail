@@ -21,7 +21,7 @@ describe('validateOptions', () => {
     });
 });
 
-describe.only('validateLines', () => {
+describe('validateLines', () => {
   it('should throw error when value is not provided for option', () => {
     assert.throws(() => validateLines(undefined, { option: '-n' }), {
       name: 'option requires an argument -- n',

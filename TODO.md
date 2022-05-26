@@ -7,10 +7,17 @@
 - **PARSING**
   - [ ] Refactor parseArgs
   - [ ] Make parseArgs work for multiple numbered options
+  - [ ] Parse arguments using options behaviour and it's defaults
 
 - **TAIL**
   - [ ] Implement multiple options
   - [ ] Fix the exitCode with the numberOf errors insteadOf setting it to one
+
+- **COMMON**
+  - [ ] Decide which logic to perform based on options instead of delimiter
+  - [ ] Catching parse errors in the tailMain and headMain
+  - [ ] Fix order of arguments based on the what function requires
+  - [ ] Use namespaces instead of destructuring
 
 **MAYBE**
 - [ ] Remove testStringUtils.js
