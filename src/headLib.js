@@ -10,32 +10,63 @@ const getDelimiter = (option) => {
   return options[option];
 };
 
-const head = (content, { lines, option }) => {
+const getOption = ({ lines, option }) => {
   const delimiter = getDelimiter(option);
+  return { lines, delimiter };
+};
+
+const head = (content, { lines, delimiter }) => {
   const allLines = extractLines(content, delimiter);
   const filteredLines = sliceUpto(allLines, lines);
   return joinLines(filteredLines, delimiter);
 };
 
-const headMain = (readFile, args, display) => {
+const createContentObj = (fileName, result) => {
+  return { fileName, result, type: 'log' };
+};
+
+const createErrorObj = (fileName) => {
+  const result = `head: ${fileName}: No such file or directory`;
+  return { result, type: 'error' };
+};
+
+const fileReader = (fileName, readFile) => {
+  try {
+    return readFile(fileName, 'utf8');
+  } catch (error) {
+    return createErrorObj(fileName);
+  }
+};
+
+const headOfFile = (fileName, readFile, options) => {
+  const content = fileReader(fileName, readFile);
+
+  if (content.type === 'error') {
+    return content;
+  }
+  const headOptions = getOption(options);
+  const result = head(content, headOptions);
+  return createContentObj(fileName, result);
+};
+
+const getExitCode = results =>
+  results.some(({ type }) => type === 'error') ? 1 : 0;
+
+const headMain = (args, readFile, display) => {
   const { fileNames, options } = parseArgs(args, headValidator);
-  let exitCode = 0;
-  const results = fileNames.map((fileName) => {
-    try {
-      const content = readFile(fileName, 'utf8');
-      return { fileName, result: head(content, options), type: 'log' };
-    } catch (error) {
-      exitCode = 1;
-      return {
-        result: `head: ${fileName}: No such file or directory`,
-        type: 'error'
-      };
-    }
-  });
+
+  const results = fileNames.map(
+    (fileName) => headOfFile(fileName, readFile, options)
+  );
+
   displayResult(display, formatResult(results));
-  return exitCode;
+  return getExitCode(results);
 };
 
 exports.head = head;
 exports.headMain = headMain;
+exports.headOfFile = headOfFile;
+exports.fileReader = fileReader;
+exports.createErrorObj = createErrorObj;
+exports.createContentObj = createContentObj;
 exports.sliceUpto = sliceUpto;

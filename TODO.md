@@ -11,7 +11,6 @@
     - [ ] Decide which logic to perform based on options instead of delimiter
     - [ ] Catching parse errors in the tailMain and headMain
     - [ ] Fix order of arguments based on the what function requires
-    - [ ] Use namespaces instead of destructuring
 
 - ### MAYBE
   - [ ] Remove testStringUtils.js
@@ -21,13 +20,16 @@
 # TAIL
 
 - ### TODO
+  - [ ] Extract tailOfFile, createContentObj,createErrorObj and FileReader
+  - [ ] Extract the fetching exitCode in to other function
   - [ ] Implement multiple options
-  - [ ] Fix the exitCode with the numberOf errors insteadOf setting it to one
 
 <br/>
 
 - ### DONE
 
+  - [x] Use namespaces instead of destructuring
+  - [x] Fix the exitCode with the numberOf errors insteadOf setting it to one
   - [x] Fix the validation errors
   - [x] Seperate formatResult and displayResult
   - [x] Modify parseArgs to take validation functions
@@ -65,11 +67,13 @@
 - ### TODO
   - [ ] Select delimiter from headMain instead of head
   - [ ] Modify mockDisplay function testing
-  - [ ] Extract fileReader and headMultipleFiles
+  - [ ] Modify object structure from option to flag or switch and lines to the count
+  - [ ] Modify headMain to the log and error functions insteadOf entire console
 
 <br/>
 
 - ### DONE
+  - [x] Extract fileReader and headOfFile
   - [x] Use the type in result to display data in console or error stream
   - [x] Dealing arguments when option and number are combined 
   - [x] Adding header when we have multiple files

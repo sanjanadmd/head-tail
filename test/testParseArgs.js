@@ -1,5 +1,8 @@
 const assert = require('assert');
-const { parseArgs, formatArgs, splitArgs } = require('../src/parseArgs');
+const {
+  parseArgs, standardizeArgs, splitArgs, setOption
+} = require('../src/parseArgs');
+
 const { headValidator } = require('../src/headValidations.js');
 const { tailValidator } = require('../src/tailValidations.js');
 
@@ -79,16 +82,16 @@ describe('parseArgs', () => {
     });
 });
 
-describe('formatArgs', () => {
+describe('standardizeArgs', () => {
   it('should seperated option and value', () => {
-    assert.deepStrictEqual(formatArgs(['-n1']), ['-n', '1']);
-    assert.deepStrictEqual(formatArgs(['-n', '1']), ['-n', '1']);
+    assert.deepStrictEqual(standardizeArgs(['-n1']), ['-n', '1']);
+    assert.deepStrictEqual(standardizeArgs(['-n', '1']), ['-n', '1']);
   });
 
   it('should set option as -n when first arg is numbered option',
     () => {
-      assert.deepStrictEqual(formatArgs(['-1']), ['-n', '1']);
-      assert.deepStrictEqual(formatArgs(['-1', '-2']), ['-n', '1', '-2']);
+      assert.deepStrictEqual(standardizeArgs(['-1']), ['-n', '1']);
+      assert.deepStrictEqual(standardizeArgs(['-1', '-2']), ['-n', '1', '-2']);
     });
 });
 
@@ -98,4 +101,22 @@ describe('splitArgs', () => {
     assert.deepStrictEqual(splitArgs('-n3'), ['-n', '3']);
     assert.deepStrictEqual(splitArgs('hello'), ['hello']);
   });
+});
+
+describe('setOption', () => {
+  it('should set the option as argument passed when it starts with "-"', () => {
+    assert.deepStrictEqual(setOption('-a'),
+      { option: '-a', lines: '10' }
+    );
+
+    assert.deepStrictEqual(setOption('-n'),
+      { option: '-n', lines: '10' }
+    );
+  });
+  it('should set option to -n if option does not starts with "-"', () => {
+    assert.deepStrictEqual(setOption('b'),
+      { option: '-n', lines: '10' }
+    );
+  });
+
 });

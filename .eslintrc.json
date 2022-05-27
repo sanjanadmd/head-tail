@@ -92,6 +92,10 @@
       {
         "max": 1
       }
+    ],
+    "quote-props": [
+      "error",
+      "consistent-as-needed"
     ]
   },
   "overrides": [
@@ -107,7 +111,8 @@
     },
     {
       "files": [
-        "head.js"
+        "head.js",
+        "tail.js"
       ],
       "rules": {
         "no-console": "off"

@@ -1,16 +1,14 @@
-// console.log('usage: tail  [-r] [-q] [-c # | -n #] [file ...]');
 const { tailMain } = require('./src/tailLib.js');
 const fs = require('fs');
-const { exit } = require('process');
 
-const main = () => {
+const main = (args) => {
   try {
-    exit(tailMain(fs.readFileSync, process.argv.slice(2), console));
+    process.exitCode = tailMain(fs.readFileSync, args, console);
   } catch (error) {
     console.error(`tail: ${error.name}`);
-    exit(1);
+    process.exitCode = 1;
   }
 };
 
-main();
+main(process.argv.slice(2));
 
