@@ -5,43 +5,74 @@ const { displayResult, formatResult } = require('./displayFormat.js');
 
 const sliceFrom = (list, count) => list.slice(count);
 
-const getDelimiter = (option) => {
-  const options = { '-n': '\n', '-c': '' };
-  return options[option];
+const fetchCount = (count) => count.startsWith('+') ?
+  Math.abs(+count - 1) : -Math.abs(+count);
+const lastNBytes = (content, noOfBytes) => {
+  const allBytes = extractLines(content, '');
+  const bytes = sliceFrom(allBytes, noOfBytes);
+  return joinLines(bytes, '');
 };
 
-const getOption = ({ lines, option }) => {
-  const count = lines.startsWith('+') ?
-    Math.abs(+lines - 1) : -Math.abs(+lines);
-  return { count, delimiter: getDelimiter(option) };
+const lastNLines = (content, noOfLines) => {
+  const allLines = extractLines(content, '\n');
+  const lines = sliceFrom(allLines, noOfLines);
+  return joinLines(lines, '\n');
 };
 
-const tail = (content, { count, delimiter }) => {
-  const allLines = extractLines(content, delimiter);
-  const filteredLines = sliceFrom(allLines, count);
-  return joinLines(filteredLines, delimiter);
+const tail = (content, { count, flag }) => {
+  const value = fetchCount(count);
+  if (flag === '-n') {
+    return lastNLines(content, value);
+  } else if (flag === '-c') {
+    return lastNBytes(content, value);
+  }
 };
 
-const tailMain = (readFile, args, display) => {
+const createContentObj = (fileName, result) => {
+  return { fileName, result };
+};
+
+const createErrorObj = (fileName) => {
+  const message = `tail: ${fileName}: No such file or directory`;
+  return { message };
+};
+
+const fileReader = (fileName, readFile) => {
+  try {
+    return readFile(fileName, 'utf8');
+  } catch (error) {
+    return { error: createErrorObj(fileName) };
+  }
+};
+
+const tailOfFile = (fileName, readFile, options) => {
+  const content = fileReader(fileName, readFile);
+
+  if (content.error !== undefined) {
+    return content;
+  }
+  const result = tail(content, options);
+  return createContentObj(fileName, result);
+};
+
+const getExitCode = results =>
+  +results.some(({ error }) => error !== undefined);
+
+const tailMain = (readFile, args, { log, error }) => {
   const { fileNames, options } = parseArgs(args, tailValidator);
-  const newOptions = getOption(options);
-  let exitCode = 0;
-  const results = fileNames.map((fileName) => {
-    try {
-      const content = readFile(fileName, 'utf8');
-      return { fileName, result: tail(content, newOptions), type: 'log' };
-    } catch (error) {
-      exitCode = 1;
-      return {
-        result: `tail: ${fileName}: No such file or directory`,
-        type: 'error'
-      };
-    }
-  });
-  displayResult(display, formatResult(results));
-  return exitCode;
+
+  const results = fileNames.map(
+    (fileName) => tailOfFile(fileName, readFile, options)
+  );
+
+  displayResult({ log, error }, formatResult(results));
+  return getExitCode(results);
 };
 
 exports.tail = tail;
 exports.tailMain = tailMain;
+exports.lastNLines = lastNLines;
+exports.lastNBytes = lastNBytes;
+exports.createContentObj = createContentObj;
+exports.createErrorObj = createErrorObj;
 exports.sliceFrom = sliceFrom;

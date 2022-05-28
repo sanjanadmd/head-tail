@@ -1,5 +1,6 @@
-const { tailMain } = require('./src/tailLib.js');
 const fs = require('fs');
+
+const { tailMain } = require('./src/tailLib.js');
 
 const main = (args) => {
   try {

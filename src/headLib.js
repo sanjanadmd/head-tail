@@ -5,61 +5,64 @@ const { displayResult, formatResult } = require('./displayFormat.js');
 
 const sliceUpto = (lines, count) => lines.slice(0, count);
 
-const getDelimiter = (option) => {
-  const options = { '-n': '\n', '-c': '' };
-  return options[option];
+const firstNBytes = (content, noOfBytes) => {
+  const allBytes = extractLines(content, '');
+  const bytes = sliceUpto(allBytes, noOfBytes);
+  return joinLines(bytes, '');
 };
 
-const getOption = ({ lines, option }) => {
-  const delimiter = getDelimiter(option);
-  return { lines, delimiter };
+const firstNLines = (content, noOfLines) => {
+  const allLines = extractLines(content, '\n');
+  const lines = sliceUpto(allLines, noOfLines);
+  return joinLines(lines, '\n');
 };
 
-const head = (content, { lines, delimiter }) => {
-  const allLines = extractLines(content, delimiter);
-  const filteredLines = sliceUpto(allLines, lines);
-  return joinLines(filteredLines, delimiter);
+const head = (content, { count, flag }) => {
+  if (flag === '-n') {
+    return firstNLines(content, count);
+  } else if (flag === '-c') {
+    return firstNBytes(content, count);
+  }
 };
 
 const createContentObj = (fileName, result) => {
-  return { fileName, result, type: 'log' };
+  return { fileName, result };
 };
 
 const createErrorObj = (fileName) => {
-  const result = `head: ${fileName}: No such file or directory`;
-  return { result, type: 'error' };
+  const message = `head: ${fileName}: No such file or directory`;
+  return { message };
 };
 
 const fileReader = (fileName, readFile) => {
   try {
     return readFile(fileName, 'utf8');
   } catch (error) {
-    return createErrorObj(fileName);
+    return { error: createErrorObj(fileName) };
   }
 };
 
 const headOfFile = (fileName, readFile, options) => {
   const content = fileReader(fileName, readFile);
 
-  if (content.type === 'error') {
+  if (content.error !== undefined) {
     return content;
   }
-  const headOptions = getOption(options);
-  const result = head(content, headOptions);
+  const result = head(content, options);
   return createContentObj(fileName, result);
 };
 
 const getExitCode = results =>
-  results.some(({ type }) => type === 'error') ? 1 : 0;
+  +results.some(({ error }) => error !== undefined);
 
-const headMain = (args, readFile, display) => {
+const headMain = (args, readFile, { log, error }) => {
   const { fileNames, options } = parseArgs(args, headValidator);
 
   const results = fileNames.map(
     (fileName) => headOfFile(fileName, readFile, options)
   );
 
-  displayResult(display, formatResult(results));
+  displayResult({ log, error }, formatResult(results));
   return getExitCode(results);
 };
 
@@ -69,4 +72,6 @@ exports.headOfFile = headOfFile;
 exports.fileReader = fileReader;
 exports.createErrorObj = createErrorObj;
 exports.createContentObj = createContentObj;
+exports.firstNBytes = firstNBytes;
+exports.firstNLines = firstNLines;
 exports.sliceUpto = sliceUpto;

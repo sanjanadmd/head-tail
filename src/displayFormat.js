@@ -10,17 +10,22 @@ const fetchResult = ({ result }) => result;
 const formatResult = (results) => {
   const formatter = decideFormatter(results);
 
-  return results.map(({ fileName, result, type }) => {
-    if (type === 'log') {
-      return { result: formatter({ result, fileName }), type };
+  return results.map(({ fileName, result, error }) => {
+    if (error === undefined) {
+      return { result: formatter({ result, fileName }) };
     }
-    return { result, type };
+    return { error };
   });
 
 };
-const displayResult = (display, results) => {
-  results.forEach(({ type, result }) => {
-    display[type](result);
+
+const displayResult = ({ log, error: logError }, results) => {
+  results.forEach(({ error, result }) => {
+    if (error === undefined) {
+      log(result);
+      return;
+    }
+    logError(error.message);
   });
 };
 

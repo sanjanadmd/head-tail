@@ -20,14 +20,14 @@
 # TAIL
 
 - ### TODO
-  - [ ] Extract tailOfFile, createContentObj,createErrorObj and FileReader
-  - [ ] Extract the fetching exitCode in to other function
   - [ ] Implement multiple options
 
 <br/>
 
 - ### DONE
 
+  - [x] Extract the fetching exitCode in to other function
+  - [x] Extract tailOfFile, createContentObj,createErrorObj and FileReader
   - [x] Use namespaces instead of destructuring
   - [x] Fix the exitCode with the numberOf errors insteadOf setting it to one
   - [x] Fix the validation errors
@@ -67,12 +67,12 @@
 - ### TODO
   - [ ] Select delimiter from headMain instead of head
   - [ ] Modify mockDisplay function testing
-  - [ ] Modify object structure from option to flag or switch and lines to the count
   - [ ] Modify headMain to the log and error functions insteadOf entire console
 
 <br/>
 
 - ### DONE
+  - [x] Modify object structure from option to flag or switch and lines to the count
   - [x] Extract fileReader and headOfFile
   - [x] Use the type in result to display data in console or error stream
   - [x] Dealing arguments when option and number are combined 

@@ -13,9 +13,9 @@ const standardizeArgs = (args) => {
 };
 
 const setDefaultOption = (arg) => {
-  const options = { option: '-n', lines: '10' };
+  const options = { flag: '-n', count: '10' };
   if (isFlag(arg)) {
-    options.option = arg;
+    options.flag = arg;
   }
   return options;
 };
@@ -26,9 +26,9 @@ const parseArgs = (cmdArgs, validator) => {
 
   let index = 0;
   while (isFlag(args[index])) {
-    validator.option(['-n', '-c'], options.option, args[index]);
+    validator.option(['-n', '-c'], options.flag, args[index]);
     validator.line(args[index + 1], options);
-    options.lines = args[index + 1];
+    options.count = args[index + 1];
     index += 2;
   }
 
@@ -40,4 +40,4 @@ const parseArgs = (cmdArgs, validator) => {
 exports.parseArgs = parseArgs;
 exports.standardizeArgs = standardizeArgs;
 exports.splitArgs = splitArgs;
-exports.setOption = setDefaultOption;
+exports.setDefaultOption = setDefaultOption;

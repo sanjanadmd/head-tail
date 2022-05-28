@@ -1,33 +1,48 @@
 const assert = require('assert');
 const {
-  head, sliceUpto, fileReader, createErrorObj, createContentObj
+  head, sliceUpto, fileReader, createErrorObj, createContentObj,
+  firstNLines, firstNBytes
 } = require('../src/headLib.js');
 
-describe('head', () => {
-  it('should display first line ', () => {
-    const options = { lines: 1, delimiter: '\n' };
-    assert.strictEqual(head('', options), '');
-    assert.strictEqual(head('a', options), 'a');
-    assert.strictEqual(head('hello\nbye', options), 'hello');
+describe('firstNLines', () => {
+  it('should return first line', () => {
+    assert.strictEqual(firstNLines('', 1), '');
+    assert.strictEqual(firstNLines('a', 1), 'a');
+    assert.strictEqual(firstNLines('hello\nbye', 1), 'hello');
   });
 
-  it('should display first 2 lines', () => {
-    const options = { lines: 2, delimiter: '\n' };
-    assert.strictEqual(head('hello\nbye', options), 'hello\nbye');
-    assert.strictEqual(head('a\nb\nc', options), 'a\nb');
+  it('should return first 2 lines', () => {
+    assert.strictEqual(firstNLines('hello\nbye', 2), 'hello\nbye');
+    assert.strictEqual(firstNLines('a\nb\nc', 2), 'a\nb');
   });
+});
 
-  it('should display first character ', () => {
-    const options = { lines: 1, delimiter: '' };
-    assert.strictEqual(head('', options), '');
-    assert.strictEqual(head('a', options), 'a');
-    assert.strictEqual(head('hello\nbye', options), 'h');
+describe('firstNBytes', () => {
+  it('should return first character ', () => {
+    assert.strictEqual(firstNBytes('', 1), '');
+    assert.strictEqual(firstNBytes('a', 1), 'a');
+    assert.strictEqual(firstNBytes('hello\nbye', 1), 'h');
   });
 
   it('should display first 5 characters ', () => {
-    const options = { lines: 5, delimiter: '' };
+    assert.strictEqual(firstNBytes('a', 5), 'a');
+    assert.strictEqual(firstNBytes('hello\nbye', 5), 'hello');
+  });
+});
+
+describe('head', () => {
+  it('should display first line ', () => {
+    const options = { count: 1, flag: '-n' };
+    assert.strictEqual(head('', options), '');
     assert.strictEqual(head('a', options), 'a');
     assert.strictEqual(head('hello\nbye', options), 'hello');
+  });
+
+  it('should display first character ', () => {
+    const options = { count: 1, flag: '-c' };
+    assert.strictEqual(head('', options), '');
+    assert.strictEqual(head('a', options), 'a');
+    assert.strictEqual(head('hello\nbye', options), 'h');
   });
 });
 
@@ -71,8 +86,7 @@ describe('fileReader', () => {
   it('should return the error of file when file does not exist', () => {
     const mockReadFile = shouldReturn(['a.txt'], ['hello']);
     assert.deepStrictEqual(fileReader('b.txt', mockReadFile), {
-      result: 'head: b.txt: No such file or directory',
-      type: 'error'
+      error: { message: 'head: b.txt: No such file or directory', }
     });
   });
 });
@@ -80,8 +94,7 @@ describe('fileReader', () => {
 describe('createErrorObj', () => {
   it('should return file not found error and type will error ', () => {
     assert.deepStrictEqual(createErrorObj('a.txt'), {
-      result: 'head: a.txt: No such file or directory',
-      type: 'error'
+      message: 'head: a.txt: No such file or directory',
     });
   });
 });
@@ -91,7 +104,6 @@ describe('createContentObj', () => {
     assert.deepStrictEqual(createContentObj('a.txt', 'hello'), {
       fileName: 'a.txt',
       result: 'hello',
-      type: 'log'
     });
   });
 });

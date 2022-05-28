@@ -5,15 +5,15 @@ describe('formatResult', () => {
   it('should return unformatted result when there is only one file', () => {
     assert.deepStrictEqual(formatResult([
       { fileName: 'a.txt', result: 'n', type: 'log' }
-    ]), [{ result: 'n', type: 'log' }]);
+    ]), [{ result: 'n' }]);
   });
   it('should return formatted result when there are multiple files', () => {
     assert.deepStrictEqual(formatResult([
       { fileName: 'a.txt', result: 'a', type: 'log' },
-      { fileName: 'b.txt', result: 'b', type: 'error' }
+      { error: { message: 'b.txt: No such file or directory' } }
     ]), [
-      { result: '==> a.txt <==\na\n', type: 'log' },
-      { result: 'b', type: 'error' }
+      { result: '==> a.txt <==\na\n', },
+      { error: { message: 'b.txt: No such file or directory' } }
     ]);
   });
 });
@@ -30,30 +30,30 @@ describe('displayResult', () => {
   it('should display all data with logs', () => {
     let display = { log: mockDisplay(['n']) };
     assert.strictEqual(displayResult(display,
-      [{ result: 'n', type: 'log' }]), undefined);
+      [{ result: 'n' }]), undefined);
 
     display = { log: mockDisplay(['n', 'b']) };
     assert.strictEqual(displayResult(display, [
-      { result: 'n', type: 'log' },
-      { result: 'b', type: 'log' }
+      { result: 'n' },
+      { result: 'b' }
     ]), undefined);
 
     display = {
       log: mockDisplay(['n', 'b']), error: mockDisplay(['n'])
     };
     assert.strictEqual(displayResult(display,
-      [{ result: 'n', type: 'error' }]), undefined);
+      [{ error: { message: 'n' } }]), undefined);
   });
 
   it('should display all data with errors', () => {
     let display = { error: mockDisplay(['n']) };
     assert.strictEqual(displayResult(display,
-      [{ result: 'n', type: 'error' }]), undefined);
+      [{ error: { message: 'n' } }]), undefined);
 
     display = { error: mockDisplay(['n', 'b']) };
     assert.strictEqual(displayResult(display, [
-      { result: 'n', type: 'error' },
-      { result: 'b', type: 'error' }
+      { error: { message: 'n' } },
+      { error: { message: 'b' } },
     ]), undefined);
   });
   it('should display logs and errors also', () => {
@@ -63,11 +63,11 @@ describe('displayResult', () => {
     };
 
     assert.strictEqual(displayResult(display, [
-      { result: 'a', type: 'log' },
-      { result: 'b', type: 'error' },
-      { result: 'c', type: 'log' },
-      { result: 'd', type: 'error' },
-      { result: 'e', type: 'log' }
+      { result: 'a' },
+      { error: { message: 'b' } },
+      { result: 'c' },
+      { error: { message: 'd' } },
+      { result: 'e' }
     ]), undefined);
   });
 });
